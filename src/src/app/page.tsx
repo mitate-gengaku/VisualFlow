@@ -1,14 +1,12 @@
-import { DownloadForm } from "@/features/download/components/download-form";
 import { Flow } from "@/features/flow/components/react-flow";
-import Image from "next/image";
+import { ReactFlowProvider } from "@xyflow/react";
 
 export default function Home() {
   return (
-    <div
-      className='flex relative font-noto-sans-jp'
-      style={{ width: '100vw', height: '100vh' }}
-      >
-      <Flow />
-    </div>
+    <ReactFlowProvider>
+      <main className="w-full h-full">
+        <Flow />
+      </main>
+    </ReactFlowProvider>
   );
 }

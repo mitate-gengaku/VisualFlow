@@ -13,8 +13,11 @@ import {
   EdgeChange,
   addEdge,
   Connection,
+  SelectionMode,
+  MiniMap,
 } from '@xyflow/react'; 
 import { atom, useAtom } from 'jotai';
+import { ControlPanel } from './control-panel';
 
 const initialNodes: Node[] = [
   {
@@ -64,9 +67,14 @@ export const Flow = () => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       fitView
+      panOnScroll
+      selectionOnDrag
+      panOnDrag={[1, 2]}
+      selectionMode={SelectionMode.Partial}
       >
-      <Controls />
+      <ControlPanel />
       <Background />
+      <MiniMap />
     </ReactFlow>
   )
 }
