@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Noto_Sans_JP } from "next/font/google";
-import "./globals.css";
+import "./globals.css"
+import "@xyflow/react/dist/style.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${notoSansJP.variable} antialiased`}
+        className={`w-screen h-screen overflow-hidden ${geistSans.variable} ${notoSansJP.variable} antialiased`}
       >
         {children}
       </body>
