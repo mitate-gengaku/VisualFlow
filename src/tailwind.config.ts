@@ -57,7 +57,7 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
 			fontFamily: {
-				"noto-sans-jp": ["var[--font-noto-sans-jp]"]
+				"noto-sans-jp": ["var(--font-noto-sans-jp)"]
 			}
   	}
   },
