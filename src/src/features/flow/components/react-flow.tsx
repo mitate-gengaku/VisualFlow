@@ -18,24 +18,42 @@ import {
 } from '@xyflow/react'; 
 import { atom, useAtom } from 'jotai';
 import { ControlPanel } from './control-panel';
+import { WorkflowNode } from './workflow-node';
 
 const initialNodes: Node[] = [
   {
     id: '1',
     data: { label: 'Hello' },
     position: { x: 0, y: 0 },
-    type: 'input',
+    type: 'workflow',
   },
   {
     id: '2',
     data: { label: 'World' },
-    position: { x: 100, y: 100 },
+    position: { x: 300, y: 0 },
+    type: 'job'
+  },
+  {
+    id: '3',
+    data: { label: 'World' },
+    position: { x: 600, y: 0 },
+    type: 'job'
+  },
+  {
+    id: '4',
+    data: { label: 'World' },
+    position: { x: 900, y: 0 },
+    type: 'step'
+  },
+  {
+    id: '5',
+    data: { label: 'World' },
+    position: { x: 1200, y: 0 },
+    type: 'step'
   },
 ];
  
-const initialEdges: Edge[] = [
-  { id: '1-2', source: '1', target: '2', type: 'step' },
-];
+const initialEdges: Edge[] = [];
 
 const nodesAtom = atom<Node[]>(initialNodes)
 const edgesAtom = atom<Edge[]>(initialEdges)
@@ -59,6 +77,11 @@ export const Flow = () => {
     [],
   );
 
+  const nodeTypes = {
+    workflow: WorkflowNode
+  };
+  const edgeTypes = {};
+
   return (
     <ReactFlow
       nodes={nodes}
@@ -66,6 +89,7 @@ export const Flow = () => {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      nodeTypes={nodeTypes}
       fitView
       panOnScroll
       selectionOnDrag
