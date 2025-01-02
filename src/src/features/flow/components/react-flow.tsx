@@ -19,6 +19,7 @@ import {
 import { atom, useAtom } from 'jotai';
 import { ControlPanel } from './control-panel';
 import { WorkflowNode } from './workflow-node';
+import { JobNode } from './job-node';
 
 const initialNodes: Node[] = [
   {
@@ -78,7 +79,8 @@ export const Flow = () => {
   );
 
   const nodeTypes = {
-    workflow: WorkflowNode
+    workflow: WorkflowNode,
+    job: JobNode,
   };
   const edgeTypes = {};
 
