@@ -14,6 +14,7 @@ import {
   addEdge,
   Connection,
 } from '@xyflow/react'; 
+import { atom, useAtom } from 'jotai';
 
 const initialNodes: Node[] = [
   {
@@ -32,20 +33,24 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [
   { id: '1-2', source: '1', target: '2', type: 'step' },
 ];
+
+const nodesAtom = atom<Node[]>(initialNodes)
+const edgesAtom = atom<Edge[]>(initialEdges)
  
 export const Flow = () => {
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const [nodes, setNodes] = useAtom(nodesAtom);
+  const [edges, setEdges] = useAtom(edgesAtom);
  
-
   const onNodesChange = useCallback(
     (changes: NodeChange<Node>[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
     [],
   );
+
   const onEdgesChange = useCallback(
     (changes: EdgeChange<Edge>[]) => setEdges((eds) => applyEdgeChanges(changes, eds)),
     [],
   );
+  
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
     [],
