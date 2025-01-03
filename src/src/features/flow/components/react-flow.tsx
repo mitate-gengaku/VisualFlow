@@ -18,23 +18,124 @@ import {
 } from '@xyflow/react'; 
 import { atom, useAtom } from 'jotai';
 import { ControlPanel } from './control-panel';
+import { WorkflowNode } from './workflow-node';
+import { JobNode } from './job-node';
+import { StepNode } from './step-node';
+import { ErrorEdge } from './error-edge';
 
 const initialNodes: Node[] = [
   {
-    id: '1',
-    data: { label: 'Hello' },
-    position: { x: 0, y: 0 },
-    type: 'input',
+      "id": "1",
+      "data": {
+          "label": "Hello"
+      },
+      "position": {
+          "x": 0,
+          "y": 0
+      },
+      "type": "workflow",
+      "measured": {
+          "width": 256,
+          "height": 98
+      }
   },
   {
-    id: '2',
-    data: { label: 'World' },
-    position: { x: 100, y: 100 },
+      "id": "2",
+      "data": {
+          "label": "World"
+      },
+      "position": {
+          "x": 400,
+          "y": 0
+      },
+      "type": "job",
+      "measured": {
+          "width": 256,
+          "height": 118
+      }
   },
-];
+  {
+      "id": "3",
+      "data": {
+          "label": "World"
+      },
+      "position": {
+          "x": 400,
+          "y": 200
+      },
+      "type": "job",
+      "measured": {
+          "width": 256,
+          "height": 118
+      }
+  },
+  {
+      "id": "4",
+      "data": {
+          "label": "World"
+      },
+      "position": {
+          "x": 800,
+          "y": 0
+      },
+      "type": "step",
+      "measured": {
+          "width": 256,
+          "height": 98
+      }
+  },
+  {
+      "id": "5",
+      "data": {
+          "label": "World"
+      },
+      "position": {
+          "x": 800,
+          "y": 200
+      },
+      "type": "step",
+      "measured": {
+          "width": 256,
+          "height": 98
+      }
+  }
+]
  
 const initialEdges: Edge[] = [
-  { id: '1-2', source: '1', target: '2', type: 'step' },
+  {
+      "source": "1",
+      "target": "2",
+      "type": "step",
+      "id": "xy-edge__1-2",
+      "animated": true,
+  },
+  {
+      "source": "1",
+      "target": "3",
+      "type": "step",
+      "id": "xy-edge__1-3",
+      "animated": true,
+  },
+  {
+      "source": "2",
+      "target": "4",
+      "type": "step",
+      "id": "xy-edge__2-4",
+      "animated": true,
+  },
+  {
+      "source": "3",
+      "target": "4",
+      "type": "step",
+      "id": "xy-edge__3-4",
+      "animated": true,
+  },
+  {
+      "source": "4",
+      "target": "5",
+      "type": "error",
+      "id": "xy-edge__4-5",
+  },
 ];
 
 const nodesAtom = atom<Node[]>(initialNodes)
@@ -55,9 +156,19 @@ export const Flow = () => {
   );
   
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
+    (params: Connection) => setEdges((eds) => addEdge({ ...params, type: "smoothstep" }, eds)),
     [],
   );
+
+  const nodeTypes = {
+    workflow: WorkflowNode,
+    job: JobNode,
+    step: StepNode,
+  };
+
+  const edgeTypes = {
+    error: ErrorEdge
+  };
 
   return (
     <ReactFlow
@@ -66,6 +177,8 @@ export const Flow = () => {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      nodeTypes={nodeTypes}
+      edgeTypes={edgeTypes}
       fitView
       panOnScroll
       selectionOnDrag

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Noto_Sans_JP } from "next/font/google";
 import "./globals.css"
-import "@xyflow/react/dist/style.css"
+import "@xyflow/react/dist/base.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
