@@ -115,7 +115,6 @@ const initialNodes: Node[] = [
   {
       "id": "0IaZQFAgSX36gOf9UwDrEB==",
       "data": {
-          "name": "step3",
           "run": "echo 'Hello World'",
       },
       "position": {

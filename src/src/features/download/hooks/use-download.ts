@@ -1,6 +1,13 @@
+import { getConnectedEdges, useReactFlow } from "@xyflow/react";
 import { FormEvent } from "react";
+import { TransformDataClass } from "../utils/transform-data";
+import { useAtomValue } from "jotai";
+import { edgesAtom, nodesAtom } from "@/features/flow/components/react-flow";
 
 export const useDownload = () => {
+  const nodes = useAtomValue(nodesAtom);
+  const edges = useAtomValue(edgesAtom);
+
   /**
    * ファイルをダウンロード処理を行う関数
    * 
@@ -19,7 +26,10 @@ export const useDownload = () => {
   const onDownload = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const content = "Hello World";
+    const connectedEdges = getConnectedEdges(nodes, edges);
+    const TransformData = new TransformDataClass(nodes, connectedEdges);
+
+    const content = TransformData.generateYaml();
     const fileName = "test.yml"
 
     const blob = new Blob([content]);
