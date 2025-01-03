@@ -1,24 +1,26 @@
 import { Handle, Position } from "@xyflow/react";
-import { LayoutGridIcon } from "lucide-react";
+import { BoxIcon } from "lucide-react";
 import { memo } from "react";
 
-export const JobNode = memo(() => {
+export const StepNode = memo(() => {
   return (
     <>
       <div className='pb-4 text-sm border bg-white w-64 max-w-64 flex flex-col gap-1 rounded shadow'>
         <div className='flex items-center gap-2 py-2 bg-slate-50 px-3'>
-          <LayoutGridIcon
+          <BoxIcon
             className='size-2.5'
           />
-          <p className='text-xs'>ジョブ名</p>
+          <p className='text-xs'>ステップ名</p>
         </div>
-        <div className='px-3 text-[10px]'>
-          <h3>runs-on: </h3>
-          <p className='leading-[1] text-gray-500'>ubuntu-latest</p>
+        <div className='px-3 text-[10px] flex items-center gap-2'>
+          <h3>uses: </h3>
+          <p className='leading-[1] text-gray-500'>rtCamp/action-slack-notify@v2</p>
         </div>
-        <div className='px-3 text-[10px]'>
-          <h3>timeout-minutes: </h3>
-          <p className='leading-[1] text-gray-500'>30</p>
+        <div className='px-3 text-[10px] flex items-center gap-2'>
+          <h3>run: </h3>
+          <p className='text-gray-500'>
+            docker compose run --rm app npm run dev
+          </p>
         </div>
       </div>
       <Handle

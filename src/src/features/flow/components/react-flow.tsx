@@ -20,6 +20,7 @@ import { atom, useAtom } from 'jotai';
 import { ControlPanel } from './control-panel';
 import { WorkflowNode } from './workflow-node';
 import { JobNode } from './job-node';
+import { StepNode } from './step-node';
 
 const initialNodes: Node[] = [
   {
@@ -31,25 +32,25 @@ const initialNodes: Node[] = [
   {
     id: '2',
     data: { label: 'World' },
-    position: { x: 300, y: 0 },
+    position: { x: 400, y: 0 },
     type: 'job'
   },
   {
     id: '3',
     data: { label: 'World' },
-    position: { x: 600, y: 0 },
+    position: { x: 800, y: 0 },
     type: 'job'
   },
   {
     id: '4',
     data: { label: 'World' },
-    position: { x: 900, y: 0 },
+    position: { x: 1200, y: 0 },
     type: 'step'
   },
   {
     id: '5',
     data: { label: 'World' },
-    position: { x: 1200, y: 0 },
+    position: { x: 1600, y: 0 },
     type: 'step'
   },
 ];
@@ -74,14 +75,16 @@ export const Flow = () => {
   );
   
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
+    (params: Connection) => setEdges((eds) => addEdge({ ...params, type: "step" }, eds)),
     [],
   );
 
   const nodeTypes = {
     workflow: WorkflowNode,
     job: JobNode,
+    step: StepNode,
   };
+
   const edgeTypes = {};
 
   return (

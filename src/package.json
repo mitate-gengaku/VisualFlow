@@ -10,7 +10,6 @@
     "add": "npx shadcn@latest add"
   },
   "dependencies": {
-    "@radix-ui/react-icons": "^1.3.2",
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.6",
     "@xyflow/react": "^12.3.6",
