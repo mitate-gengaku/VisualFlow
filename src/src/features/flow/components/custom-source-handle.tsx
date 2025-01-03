@@ -1,5 +1,9 @@
-import { Handle, Position, useHandleConnections } from "@xyflow/react";
+"use client"
+
+import { Handle, Position, useHandleConnections, useReactFlow } from "@xyflow/react";
 import { CustomHandleProps } from "../types/custom-handle-props";
+import { useAtom, useAtomValue } from "jotai";
+import { connectionAtom, nodesAtom } from "./react-flow";
 
 export const CustomSourceHandle = (props: CustomHandleProps) => {
   const {

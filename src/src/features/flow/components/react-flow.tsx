@@ -19,7 +19,7 @@ import {
   ReactFlowJsonObject,
   reconnectEdge,
 } from '@xyflow/react'; 
-import { atom, useAtom, useAtomValue } from 'jotai';
+import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { ControlPanel } from './control-panel';
 import { WorkflowNode } from './workflow-node';
 import { JobNode } from './job-node';
@@ -170,6 +170,7 @@ const initialEdges: Edge[] = [
 
 export const nodesAtom = atom<Node[]>(initialNodes)
 export const edgesAtom = atom<Edge[]>(initialEdges)
+export const connectionAtom = atom<Connection | undefined>(undefined)
 export const instanceAtom = atomWithStorage<ReactFlowJsonObject<Node, Edge> | undefined>("save-data", undefined)
  
 export const Flow = () => {
@@ -177,6 +178,7 @@ export const Flow = () => {
 
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
+  const setConnection = useSetAtom(connectionAtom);
  
   const onNodesChange = useCallback(
     (changes: NodeChange<Node>[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -189,7 +191,10 @@ export const Flow = () => {
   );
   
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge({ ...params, type: "smoothstep", animated: true }, eds)),
+    (connection: Connection) => {
+      setConnection(connection);
+      setEdges((eds) => addEdge({ ...connection, type: "smoothstep", animated: true }, eds))
+    },
     [],
   );
 

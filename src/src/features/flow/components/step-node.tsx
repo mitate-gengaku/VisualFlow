@@ -2,8 +2,15 @@ import { Handle, Position } from "@xyflow/react";
 import { BoxIcon } from "lucide-react";
 import { memo } from "react";
 import { CustomSourceHandle } from "./custom-source-handle";
+import { CustomTargetHandle } from "./custom-target-handle";
+import { useAtomValue } from "jotai";
+import { connectionAtom, nodesAtom } from "./react-flow";
 
 export const StepNode = memo(() => {
+  const nodes = useAtomValue(nodesAtom);
+  const connection = useAtomValue(connectionAtom);
+  const sourceNode = nodes.find(node => node.id === connection?.source)
+
   return (
     <>
       <div className='pb-4 text-sm border bg-white w-64 max-w-64 flex flex-col gap-1 rounded shadow'>
@@ -24,11 +31,11 @@ export const StepNode = memo(() => {
           </p>
         </div>
       </div>
-      <Handle
+      <CustomTargetHandle
         type='target'
         position={Position.Left}
-        className='!-left-4 !size-3 !border !border-gray-600 !bg-white !rounded-[2px]'
-      />
+        connectionLimit={sourceNode?.type === "job" ? 2 : 1}
+        />
       <CustomSourceHandle
         type='source'
         position={Position.Right}
