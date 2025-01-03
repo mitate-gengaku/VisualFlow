@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Noto_Sans_JP } from "next/font/google";
 import "./globals.css"
 import "@xyflow/react/dist/base.css"
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,10 @@ export default function RootLayout({
       <body
         className={`w-screen h-screen overflow-hidden ${geistSans.variable} ${notoSansJP.variable} antialiased`}
       >
+        <Toaster 
+          richColors
+          theme="light"
+          />
         {children}
       </body>
     </html>

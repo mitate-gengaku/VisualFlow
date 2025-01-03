@@ -4,6 +4,7 @@ import { ZoomOutControl } from "./zoom-out-control"
 import { FitViewControl } from "./fit-view-control"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/utils/cn"
+import { SaveNodeControl } from "./save-node-control"
 
 export const ControlPanel = () => {
   return (
@@ -22,6 +23,7 @@ export const ControlPanel = () => {
           <ZoomInControl />
           <ZoomOutControl />
           <FitViewControl />
+          <SaveNodeControl />
         </div>
       </TooltipProvider>
     </Controls>
