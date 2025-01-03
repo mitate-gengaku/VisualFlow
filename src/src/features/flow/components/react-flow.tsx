@@ -29,9 +29,12 @@ import { atomWithStorage } from 'jotai/utils';
 
 const initialNodes: Node[] = [
   {
-      "id": "1",
+      "id": "43EEc0lxw866DXd5f917g==",
       "data": {
-          "label": "Hello"
+          "name": "workflow1",
+          "on": {
+            "workflow_dispatch": null
+          }
       },
       "position": {
           "x": 0,
@@ -44,9 +47,11 @@ const initialNodes: Node[] = [
       }
   },
   {
-      "id": "2",
+      "id": "43EEc0lxw866DXdgUf917g==",
       "data": {
-          "label": "World"
+          "job_id": "job_1",
+          "name": "job1",
+          "runs-on": "ubuntu-latest",
       },
       "position": {
           "x": 400,
@@ -59,9 +64,11 @@ const initialNodes: Node[] = [
       }
   },
   {
-      "id": "3",
+      "id": "wKoMFVD8b0rb2FR56EUyOw==",
       "data": {
-          "label": "World"
+          "job_id": "job_2",
+          "name": "job2",
+          "runs-on": "ubuntu-latest",
       },
       "position": {
           "x": 400,
@@ -74,9 +81,10 @@ const initialNodes: Node[] = [
       }
   },
   {
-      "id": "4",
+      "id": "38I9wMdUhwKKvujX++Te5g==",
       "data": {
-          "label": "World"
+          "name": "step1",
+          "run": "echo 'Hello World'",
       },
       "position": {
           "x": 800,
@@ -89,12 +97,29 @@ const initialNodes: Node[] = [
       }
   },
   {
-      "id": "5",
+      "id": "0IaZQFAgSX36gOf9UwDrEA==",
       "data": {
-          "label": "World"
+          "name": "step2",
+          "run": "echo 'Hello World'",
       },
       "position": {
           "x": 800,
+          "y": 200
+      },
+      "type": "step",
+      "measured": {
+          "width": 256,
+          "height": 98
+      }
+  },
+  {
+      "id": "0IaZQFAgSX36gOf9UwDrEB==",
+      "data": {
+          "name": "step3",
+          "run": "echo 'Hello World'",
+      },
+      "position": {
+          "x": 1200,
           "y": 200
       },
       "type": "step",
@@ -107,36 +132,36 @@ const initialNodes: Node[] = [
  
 const initialEdges: Edge[] = [
   {
-      "source": "1",
-      "target": "2",
+      "source": "43EEc0lxw866DXd5f917g==",
+      "target": "43EEc0lxw866DXdgUf917g==",
       "type": "step",
       "id": "xy-edge__1-2",
       "animated": true,
   },
   {
-      "source": "1",
-      "target": "3",
+      "source": "43EEc0lxw866DXd5f917g==",
+      "target": "wKoMFVD8b0rb2FR56EUyOw==",
       "type": "step",
       "id": "xy-edge__1-3",
       "animated": true,
   },
   {
-      "source": "2",
-      "target": "4",
+      "source": "43EEc0lxw866DXdgUf917g==",
+      "target": "38I9wMdUhwKKvujX++Te5g==",
       "type": "step",
       "id": "xy-edge__2-4",
       "animated": true,
   },
   {
-      "source": "3",
-      "target": "4",
+      "source": "wKoMFVD8b0rb2FR56EUyOw==",
+      "target": "38I9wMdUhwKKvujX++Te5g==",
       "type": "step",
       "id": "xy-edge__3-4",
       "animated": true,
   },
   {
-      "source": "4",
-      "target": "5",
+      "source": "38I9wMdUhwKKvujX++Te5g==",
+      "target": "0IaZQFAgSX36gOf9UwDrEA==",
       "type": "step",
       "id": "xy-edge__4-5",
       "animated": true,
