@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import {
   ReactFlow,
   Controls,
@@ -17,6 +17,7 @@ import {
   MiniMap,
   OnInit,
   ReactFlowJsonObject,
+  reconnectEdge,
 } from '@xyflow/react'; 
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { ControlPanel } from './control-panel';
@@ -134,10 +135,11 @@ const initialEdges: Edge[] = [
       "animated": true,
   },
   {
-    "source": "4",
-    "target": "5",
-    "type": "error",
-    "id": "xy-edge__4-5",
+      "source": "4",
+      "target": "5",
+      "type": "step",
+      "id": "xy-edge__4-5",
+      "animated": true,
   },
 ];
 
@@ -146,6 +148,8 @@ export const edgesAtom = atom<Edge[]>(initialEdges)
 export const instanceAtom = atomWithStorage<ReactFlowJsonObject<Node, Edge> | undefined>("save-data", undefined)
  
 export const Flow = () => {
+  const edgeReconnectSuccessful = useRef(true);
+
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
  
@@ -160,9 +164,26 @@ export const Flow = () => {
   );
   
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge({ ...params, type: "smoothstep" }, eds)),
+    (params: Connection) => setEdges((eds) => addEdge({ ...params, type: "smoothstep", animated: true }, eds)),
     [],
   );
+
+  const onReconnectStart = useCallback(() => {
+    edgeReconnectSuccessful.current = false;
+  }, [])
+
+  const onReconnect = useCallback((oldEdge: Edge, newConnection: Connection) => {
+    edgeReconnectSuccessful.current = true;
+    setEdges((edge) => reconnectEdge(oldEdge, newConnection, edge));
+  }, [])
+
+  const onReconnectEnd = useCallback((_: MouseEvent | TouchEvent, edge: Edge) => {
+    if (!edgeReconnectSuccessful.current) {
+      setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+    }
+
+    edgeReconnectSuccessful.current = true;
+  }, [])
 
   const nodeTypes = {
     workflow: WorkflowNode,
@@ -181,6 +202,9 @@ export const Flow = () => {
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      onReconnectStart={onReconnectStart}
+      onReconnect={onReconnect}
+      onReconnectEnd={onReconnectEnd}
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       fitView
