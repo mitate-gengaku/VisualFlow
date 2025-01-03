@@ -15,13 +15,16 @@ import {
   Connection,
   SelectionMode,
   MiniMap,
+  OnInit,
+  ReactFlowJsonObject,
 } from '@xyflow/react'; 
-import { atom, useAtom } from 'jotai';
+import { atom, useAtom, useAtomValue } from 'jotai';
 import { ControlPanel } from './control-panel';
 import { WorkflowNode } from './workflow-node';
 import { JobNode } from './job-node';
 import { StepNode } from './step-node';
 import { ErrorEdge } from './error-edge';
+import { atomWithStorage } from 'jotai/utils';
 
 const initialNodes: Node[] = [
   {
@@ -131,15 +134,16 @@ const initialEdges: Edge[] = [
       "animated": true,
   },
   {
-      "source": "4",
-      "target": "5",
-      "type": "error",
-      "id": "xy-edge__4-5",
+    "source": "4",
+    "target": "5",
+    "type": "error",
+    "id": "xy-edge__4-5",
   },
 ];
 
-const nodesAtom = atom<Node[]>(initialNodes)
-const edgesAtom = atom<Edge[]>(initialEdges)
+export const nodesAtom = atom<Node[]>(initialNodes)
+export const edgesAtom = atom<Edge[]>(initialEdges)
+export const instanceAtom = atomWithStorage<ReactFlowJsonObject<Node, Edge> | undefined>("save-data", undefined)
  
 export const Flow = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
