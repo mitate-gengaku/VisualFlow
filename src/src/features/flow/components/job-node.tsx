@@ -1,6 +1,7 @@
 import { Handle, Position } from "@xyflow/react";
 import { LayoutGridIcon } from "lucide-react";
 import { memo } from "react";
+import { CustomSourceHandle } from "./custom-source-handle";
 
 export const JobNode = memo(() => {
   return (
@@ -31,6 +32,11 @@ export const JobNode = memo(() => {
         position={Position.Right}
         className='!-right-4 !size-3 !border !border-gray-600 !bg-white !rounded-[2px]'
       />
+      <CustomSourceHandle 
+        type='source'
+        position={Position.Right}
+        connectionLimit={1}
+        />
     </>
   );
 });

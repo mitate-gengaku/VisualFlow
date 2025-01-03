@@ -1,6 +1,7 @@
 import { Handle, Position } from "@xyflow/react";
 import { NetworkIcon } from "lucide-react";
 import { memo } from "react";
+import { CustomSourceHandle } from "./custom-source-handle";
 
 export const WorkflowNode = memo(() => {
   return (
@@ -20,11 +21,11 @@ export const WorkflowNode = memo(() => {
           </ul>
         </div>
       </div>
-      <Handle
+      <CustomSourceHandle
         type='source'
         position={Position.Right}
-        className='!-right-4 !size-3 !border !border-gray-600 !bg-white !rounded-[2px]'
-      />
+        connectionLimit={2}
+        />
     </>
   );
 });
