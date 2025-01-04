@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { useDownload } from "../hooks/use-download"
+import { Label } from "@/components/ui/label";
 
 export const DownloadForm = () => {
   const {
@@ -10,7 +11,10 @@ export const DownloadForm = () => {
     <form
       onSubmit={onDownload}
       >
-      <Button>ダウンロード</Button>
+      <div className="flex flex-col gap-2">
+        <Label className="text-xs text-gray-500">YAMLファイルがダウンロードされます。</Label>
+        <Button>ダウンロード</Button>
+      </div>
     </form>
   )
 }

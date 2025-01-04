@@ -1,12 +1,17 @@
+"use client"
+
 import { getConnectedEdges, useReactFlow } from "@xyflow/react";
-import { FormEvent } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { TransformDataClass } from "../utils/transform-data";
-import { useAtomValue } from "jotai";
-import { edgesAtom, nodesAtom } from "@/features/flow/components/react-flow";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { edgesAtom, nodesAtom, workflowCodeAtom } from "@/features/flow/components/react-flow";
+import { toast } from "sonner";
 
 export const useDownload = () => {
+  const [isSuccessCopy, setSuccessCopy] = useState<boolean>(false);
   const nodes = useAtomValue(nodesAtom);
   const edges = useAtomValue(edgesAtom);
+  const [workflowCode, setWorkflowCode] = useAtom(workflowCodeAtom);
 
   /**
    * ファイルをダウンロード処理を行う関数
@@ -32,6 +37,8 @@ export const useDownload = () => {
     const content = TransformData.generateYaml();
     const fileName = "test.yml"
 
+    setWorkflowCode(content)
+
     const blob = new Blob([content]);
     const downloadUrl = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -43,7 +50,36 @@ export const useDownload = () => {
     window.URL.revokeObjectURL(downloadUrl);
   }
 
+  const onCopyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(workflowCode);
+      setSuccessCopy(true);
+    } catch (e) {
+      toast.error("コピーに失敗しました")
+      return;
+    }
+  }
+
+  useEffect(() => {
+    const connectedEdges = getConnectedEdges(nodes, edges);
+    const TransformData = new TransformDataClass(nodes, connectedEdges);
+
+    const content = TransformData.generateYaml();
+
+    setWorkflowCode(content)
+  }, [nodes, edges]);
+
+  useEffect(() => {
+    if (!isSuccessCopy) return;
+    setTimeout(() => {
+      setSuccessCopy(false);
+    }, 3000);
+  }, [isSuccessCopy]);
+
   return {
-    onDownload
+    isSuccessCopy,
+    code: workflowCode,
+    onDownload,
+    onCopyToClipboard
   }
 }
