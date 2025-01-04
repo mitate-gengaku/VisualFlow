@@ -1,10 +1,28 @@
-import { Handle, Position } from "@xyflow/react";
+import { Connection, Edge, Handle, Position } from "@xyflow/react";
 import { LayoutGridIcon } from "lucide-react";
 import { memo } from "react";
 import { CustomSourceHandle } from "./custom-source-handle";
 import { CustomTargetHandle } from "./custom-target-handle";
+import { useAtomValue } from "jotai";
+import { nodesAtom } from "./react-flow";
 
 export const JobNode = memo(() => {
+  const nodes = useAtomValue(nodesAtom);
+
+  const isValidSourceConnection = (connection: Connection | Edge) => {
+    const targetNode = nodes.find(node => node.id === connection?.target);
+
+    if (!targetNode) return false;
+    return targetNode.type === "step"
+  }
+
+  const isValidTargetConnection = (connection: Connection | Edge) => {
+    const targetNode = nodes.find(node => node.id === connection?.source);
+
+    if (!targetNode) return false;
+    return targetNode.type === "workflow"
+  }
+
   return (
     <>
       <div className='pb-4 text-sm border bg-white w-64 max-w-64 flex flex-col gap-1 rounded shadow'>
@@ -27,11 +45,13 @@ export const JobNode = memo(() => {
         type='target'
         position={Position.Left}
         connectionLimit={1}
+        isValidConnection={isValidTargetConnection}
         />
       <CustomSourceHandle 
         type='source'
         position={Position.Right}
         connectionLimit={1}
+        isValidConnection={isValidSourceConnection}
         />
     </>
   );
