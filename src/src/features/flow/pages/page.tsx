@@ -1,4 +1,5 @@
 import { Header } from "@/components/layout/header";
+import { Sidebar } from "@/components/layout/sidebar";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Flow } from "@/features/flow/components/react-flow";
 import { ReactFlowProvider } from "@xyflow/react";
@@ -17,7 +18,7 @@ export const TopPage = () => {
             defaultSize={30}
             maxSize={30}
             >
-              4
+            <Sidebar />
           </ResizablePanel>
           <ResizableHandle
             withHandle
