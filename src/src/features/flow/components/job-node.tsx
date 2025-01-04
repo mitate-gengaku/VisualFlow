@@ -1,6 +1,8 @@
 import { Handle, Position } from "@xyflow/react";
 import { LayoutGridIcon } from "lucide-react";
 import { memo } from "react";
+import { CustomSourceHandle } from "./custom-source-handle";
+import { CustomTargetHandle } from "./custom-target-handle";
 
 export const JobNode = memo(() => {
   return (
@@ -21,16 +23,16 @@ export const JobNode = memo(() => {
           <p className='leading-[1] text-gray-500'>30</p>
         </div>
       </div>
-      <Handle
+      <CustomTargetHandle
         type='target'
         position={Position.Left}
-        className='!-left-4 !size-3 !border !border-gray-600 !bg-white !rounded-[2px]'
-      />
-      <Handle
+        connectionLimit={1}
+        />
+      <CustomSourceHandle 
         type='source'
         position={Position.Right}
-        className='!-right-4 !size-3 !border !border-gray-600 !bg-white !rounded-[2px]'
-      />
+        connectionLimit={1}
+        />
     </>
   );
 });

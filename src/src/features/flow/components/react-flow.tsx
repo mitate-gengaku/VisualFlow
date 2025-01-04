@@ -19,7 +19,7 @@ import {
   ReactFlowJsonObject,
   reconnectEdge,
 } from '@xyflow/react'; 
-import { atom, useAtom, useAtomValue } from 'jotai';
+import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { ControlPanel } from './control-panel';
 import { WorkflowNode } from './workflow-node';
 import { JobNode } from './job-node';
@@ -29,9 +29,12 @@ import { atomWithStorage } from 'jotai/utils';
 
 const initialNodes: Node[] = [
   {
-      "id": "1",
+      "id": "43EEc0lxw866DXd5f917g==",
       "data": {
-          "label": "Hello"
+          "name": "workflow1",
+          "on": {
+            "workflow_dispatch": null
+          }
       },
       "position": {
           "x": 0,
@@ -44,9 +47,11 @@ const initialNodes: Node[] = [
       }
   },
   {
-      "id": "2",
+      "id": "43EEc0lxw866DXdgUf917g==",
       "data": {
-          "label": "World"
+          "job_id": "job_1",
+          "name": "job1",
+          "runs-on": "ubuntu-latest",
       },
       "position": {
           "x": 400,
@@ -59,9 +64,11 @@ const initialNodes: Node[] = [
       }
   },
   {
-      "id": "3",
+      "id": "wKoMFVD8b0rb2FR56EUyOw==",
       "data": {
-          "label": "World"
+          "job_id": "job_2",
+          "name": "job2",
+          "runs-on": "ubuntu-latest",
       },
       "position": {
           "x": 400,
@@ -74,9 +81,10 @@ const initialNodes: Node[] = [
       }
   },
   {
-      "id": "4",
+      "id": "38I9wMdUhwKKvujX++Te5g==",
       "data": {
-          "label": "World"
+          "name": "step1",
+          "run": "echo 'Hello World'",
       },
       "position": {
           "x": 800,
@@ -89,12 +97,28 @@ const initialNodes: Node[] = [
       }
   },
   {
-      "id": "5",
+      "id": "0IaZQFAgSX36gOf9UwDrEA==",
       "data": {
-          "label": "World"
+          "name": "step2",
+          "run": "echo 'Hello World'",
       },
       "position": {
           "x": 800,
+          "y": 200
+      },
+      "type": "step",
+      "measured": {
+          "width": 256,
+          "height": 98
+      }
+  },
+  {
+      "id": "0IaZQFAgSX36gOf9UwDrEB==",
+      "data": {
+          "run": "echo 'Hello World'",
+      },
+      "position": {
+          "x": 1200,
           "y": 200
       },
       "type": "step",
@@ -107,36 +131,36 @@ const initialNodes: Node[] = [
  
 const initialEdges: Edge[] = [
   {
-      "source": "1",
-      "target": "2",
+      "source": "43EEc0lxw866DXd5f917g==",
+      "target": "43EEc0lxw866DXdgUf917g==",
       "type": "step",
       "id": "xy-edge__1-2",
       "animated": true,
   },
   {
-      "source": "1",
-      "target": "3",
+      "source": "43EEc0lxw866DXd5f917g==",
+      "target": "wKoMFVD8b0rb2FR56EUyOw==",
       "type": "step",
       "id": "xy-edge__1-3",
       "animated": true,
   },
   {
-      "source": "2",
-      "target": "4",
+      "source": "43EEc0lxw866DXdgUf917g==",
+      "target": "38I9wMdUhwKKvujX++Te5g==",
       "type": "step",
       "id": "xy-edge__2-4",
       "animated": true,
   },
   {
-      "source": "3",
-      "target": "4",
+      "source": "wKoMFVD8b0rb2FR56EUyOw==",
+      "target": "38I9wMdUhwKKvujX++Te5g==",
       "type": "step",
       "id": "xy-edge__3-4",
       "animated": true,
   },
   {
-      "source": "4",
-      "target": "5",
+      "source": "38I9wMdUhwKKvujX++Te5g==",
+      "target": "0IaZQFAgSX36gOf9UwDrEA==",
       "type": "step",
       "id": "xy-edge__4-5",
       "animated": true,
@@ -145,6 +169,7 @@ const initialEdges: Edge[] = [
 
 export const nodesAtom = atom<Node[]>(initialNodes)
 export const edgesAtom = atom<Edge[]>(initialEdges)
+export const connectionAtom = atom<Connection | undefined>(undefined)
 export const instanceAtom = atomWithStorage<ReactFlowJsonObject<Node, Edge> | undefined>("save-data", undefined)
  
 export const Flow = () => {
@@ -152,6 +177,7 @@ export const Flow = () => {
 
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
+  const setConnection = useSetAtom(connectionAtom);
  
   const onNodesChange = useCallback(
     (changes: NodeChange<Node>[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -164,7 +190,10 @@ export const Flow = () => {
   );
   
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge({ ...params, type: "smoothstep", animated: true }, eds)),
+    (connection: Connection) => {
+      setConnection(connection);
+      setEdges((eds) => addEdge({ ...connection, type: "smoothstep", animated: true }, eds))
+    },
     [],
   );
 
