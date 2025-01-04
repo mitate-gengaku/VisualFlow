@@ -167,10 +167,15 @@ const initialEdges: Edge[] = [
   },
 ];
 
+const generateStorageKey = () => {
+  return new Date().toLocaleDateString("sv-SV").toString()
+}
+
 export const nodesAtom = atom<Node[]>(initialNodes)
 export const edgesAtom = atom<Edge[]>(initialEdges)
 export const connectionAtom = atom<Connection | undefined>(undefined)
-export const instanceAtom = atomWithStorage<ReactFlowJsonObject<Node, Edge> | undefined>("save-data", undefined)
+export const workflowCodeAtom = atom<string>("");
+export const instanceAtom = atomWithStorage<ReactFlowJsonObject<Node, Edge> | undefined>(generateStorageKey(), undefined)
  
 export const Flow = () => {
   const edgeReconnectSuccessful = useRef(true);
@@ -236,6 +241,8 @@ export const Flow = () => {
       onReconnectEnd={onReconnectEnd}
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
+      snapToGrid={true}
+      snapGrid={[25, 25]}
       fitView
       panOnScroll
       selectionOnDrag

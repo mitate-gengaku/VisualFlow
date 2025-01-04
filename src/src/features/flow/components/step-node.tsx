@@ -1,4 +1,4 @@
-import { Handle, Position } from "@xyflow/react";
+import { Connection, Edge, Handle, Position } from "@xyflow/react";
 import { BoxIcon } from "lucide-react";
 import { memo } from "react";
 import { CustomSourceHandle } from "./custom-source-handle";
@@ -9,7 +9,21 @@ import { connectionAtom, nodesAtom } from "./react-flow";
 export const StepNode = memo(() => {
   const nodes = useAtomValue(nodesAtom);
   const connection = useAtomValue(connectionAtom);
-  const sourceNode = nodes.find(node => node.id === connection?.source)
+  const sourceNode = nodes.find(node => node.id === connection?.source);
+  
+  const isValidSourceConnection = (connection: Connection | Edge) => {
+    const targetNode = nodes.find(node => node.id === connection?.target);
+
+    if (!targetNode) return false;
+    return targetNode.type === "step"
+  }
+
+  const isValidTargetConnection = (connection: Connection | Edge) => {
+    const targetNode = nodes.find(node => node.id === connection?.source);
+
+    if (!targetNode) return false;
+    return targetNode.type === "job"
+  }
 
   return (
     <>
@@ -35,11 +49,13 @@ export const StepNode = memo(() => {
         type='target'
         position={Position.Left}
         connectionLimit={sourceNode?.type === "job" ? 2 : 1}
+        isValidConnection={isValidTargetConnection}
         />
       <CustomSourceHandle
         type='source'
         position={Position.Right}
         connectionLimit={1}
+        isValidConnection={isValidSourceConnection}
         />
     </>
   );
