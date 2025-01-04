@@ -197,7 +197,7 @@ export const Flow = () => {
   const onConnect = useCallback(
     (connection: Connection) => {
       setConnection(connection);
-      setEdges((eds) => addEdge({ ...connection, type: "smoothstep", animated: true }, eds))
+      setEdges((eds) => addEdge({ ...connection, type: "step", animated: true }, eds))
     },
     [],
   );
@@ -244,6 +244,9 @@ export const Flow = () => {
       snapToGrid={true}
       snapGrid={[25, 25]}
       fitView
+      fitViewOptions={{
+        duration: 1000,
+      }}
       panOnScroll
       selectionOnDrag
       panOnDrag={[1, 2]}
