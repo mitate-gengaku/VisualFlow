@@ -1,6 +1,6 @@
 "use client"
 
-import { useAtomValue } from "jotai"
+import { useAtom, useAtomValue } from "jotai"
 import { Button } from "../ui/button"
 import { ScrollArea } from "../ui/scroll-area"
 import { nodesAtom } from "@/features/flow/components/react-flow"
@@ -8,18 +8,37 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "..
 import { useMemo } from "react"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
+import { v4 as uuidv4 } from 'uuid';
 
 export const Sidebar = () => {
-  const nodes = useAtomValue(nodesAtom);
+  const [nodes, setNodes] = useAtom(nodesAtom);
+
   const workflows = useMemo(() => {
     return nodes.filter((v) => v.type === "workflow")
   }, [nodes]);
+
   const jobs = useMemo(() => {
     return nodes.filter((v) => v.type === "job")
   }, [nodes]);
+  
   const steps = useMemo(() => {
     return nodes.filter((v) => v.type === "step")
   }, [nodes]);
+
+  const onCreateNode = (type: "workflow" | "job" | "step") => {
+
+    setNodes([...nodes, {
+      id: uuidv4(),
+      position: {
+        x: type === "workflow" ? 0 : type === "job" ? 400 : 800,
+        y: type === "workflow" ? workflows.length * 200 : type === "job" ? jobs.length * 200 : steps.length * 200
+      },
+      data: {
+        name: ""
+      },
+      type: type
+    }])
+  }
 
   return (
     <div className="pt-3 px-4 font-noto-sans-jp">
@@ -32,6 +51,7 @@ export const Sidebar = () => {
                 variant="outline"
                 size="sm"
                 className='h-6 rounded-sm'
+                onClick={() => onCreateNode("workflow")}
                 >
                 追加
               </Button>
@@ -42,7 +62,7 @@ export const Sidebar = () => {
                   <AccordionTrigger
                     className='py-2 hover:no-underline outline-none'
                   >
-                    {workflow.data.name as string}
+                    {(workflow.data.name as string) ? workflow.data.name as string : `${workflow.id}`}
                   </AccordionTrigger>
                   <AccordionContent className='flex flex-col gap-2'>
                     <div className='flex flex-col gap-1'>
@@ -68,6 +88,7 @@ export const Sidebar = () => {
                 variant="outline"
                 size="sm"
                 className='h-6 rounded-sm'
+                onClick={() => onCreateNode("job")}
                 >
                 追加
               </Button>
@@ -78,7 +99,7 @@ export const Sidebar = () => {
                   <AccordionTrigger
                     className='py-2 hover:no-underline outline-none'
                   >
-                    {job.data.name as string}
+                    {(job.data.name as string) ? job.data.name as string : `${job.id}`}
                   </AccordionTrigger>
                   <AccordionContent className='flex flex-col gap-2'>
                     <div className='flex flex-col gap-1'>
@@ -104,6 +125,7 @@ export const Sidebar = () => {
                 variant="outline"
                 size="sm"
                 className='h-6 rounded-sm'
+                onClick={() => onCreateNode("step")}
                 >
                 追加
               </Button>
@@ -135,7 +157,7 @@ export const Sidebar = () => {
                       >
                         <Textarea
                           className='px-2 text-xs rounded-sm resize-none'
-                          required
+                          defaultValue={step.data.run as string}
                         />
                       </div>
                     </div>

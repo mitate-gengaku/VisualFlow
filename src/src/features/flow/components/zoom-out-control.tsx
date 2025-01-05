@@ -8,7 +8,9 @@ export const ZoomOutControl = () => {
   } = useReactFlow();
 
   const onZoomOutHandler = () => {
-    zoomOut();
+    zoomOut({
+      duration: 1000
+    });
   }
 
   return (

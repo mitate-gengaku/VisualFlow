@@ -25,10 +25,10 @@ export const JobNode = memo(() => {
 
   return (
     <>
-      <div className='pb-4 text-sm border bg-white w-64 max-w-64 flex flex-col gap-1 rounded shadow'>
+      <div className='font-noto-sans-jp pb-4 text-sm border bg-white w-64 max-w-64 flex flex-col gap-2 rounded shadow'>
         <div className='flex items-center gap-2 py-2 bg-slate-50 px-3'>
           <LayoutGridIcon
-            className='size-2.5'
+            className='size-3'
           />
           <p className='text-xs'>ジョブ名</p>
         </div>
