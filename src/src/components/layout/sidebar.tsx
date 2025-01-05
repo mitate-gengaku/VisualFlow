@@ -9,23 +9,37 @@ import { useMemo } from "react"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { v4 as uuidv4 } from 'uuid';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { Node, NodeProps } from "@xyflow/react"
+import { WorkflowData } from "@/features/flow/types/workflow-data"
+import { StepData } from "@/features/flow/types/step-data"
+import { JobData } from "@/features/flow/types/job-data"
+
+const runsOnOptions = [
+  {
+    value: "ubuntu-latest",
+    label: "ubuntu-latest"
+  }
+]
 
 export const Sidebar = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
 
   const workflows = useMemo(() => {
     return nodes.filter((v) => v.type === "workflow")
-  }, [nodes]);
+  }, [nodes]) as Node<WorkflowData>[];
 
   const jobs = useMemo(() => {
     return nodes.filter((v) => v.type === "job")
-  }, [nodes]);
+  }, [nodes]) as Node<JobData>[];
   
   const steps = useMemo(() => {
     return nodes.filter((v) => v.type === "step")
-  }, [nodes]);
+  }, [nodes]) as Node<StepData>[];
 
   const onCreateNode = (type: "workflow" | "job" | "step") => {
+    if (type === "workflow" && workflows.length) return;
+    if (type === "job" && jobs.length >= 10) return;
 
     setNodes([...nodes, {
       id: uuidv4(),
@@ -38,6 +52,23 @@ export const Sidebar = () => {
       },
       type: type
     }])
+  }
+
+  const onUpdateNode = (id: string, newData: Partial<Node<WorkflowData | JobData | StepData>["data"]>) => {
+    setNodes((prevNodes) => {
+      return prevNodes.map((prevNode) => {
+        if (prevNode.id === id) {
+          return {
+            ...prevNode,
+            data: {
+              ...prevNode.data,
+              ...newData
+            }
+          }
+        }
+        return prevNode
+      })
+    })
   }
 
   return (
@@ -62,7 +93,7 @@ export const Sidebar = () => {
                   <AccordionTrigger
                     className='py-2 hover:no-underline outline-none'
                   >
-                    {(workflow.data.name as string) ? workflow.data.name as string : `${workflow.id}`}
+                    {workflow.data.name ? workflow.data.name : `${workflow.id}`}
                   </AccordionTrigger>
                   <AccordionContent className='flex flex-col gap-2'>
                     <div className='flex flex-col gap-1'>
@@ -72,7 +103,10 @@ export const Sidebar = () => {
                       >
                         <Input
                           className='h-7 px-2 text-xs rounded-sm'
-                          defaultValue={workflow.data.name as string}
+                          defaultValue={workflow.data.name}
+                          onChange={(e) => onUpdateNode(workflow.id, {
+                            name: e.target.value
+                          })}
                         />
                       </div>
                     </div>
@@ -99,7 +133,7 @@ export const Sidebar = () => {
                   <AccordionTrigger
                     className='py-2 hover:no-underline outline-none'
                   >
-                    {(job.data.name as string) ? job.data.name as string : `${job.id}`}
+                    {(job.data.name) ? job.data.name : `${job.id}`}
                   </AccordionTrigger>
                   <AccordionContent className='flex flex-col gap-2'>
                     <div className='flex flex-col gap-1'>
@@ -109,8 +143,33 @@ export const Sidebar = () => {
                       >
                         <Input
                           className='h-7 px-2 text-xs rounded-sm'
-                          defaultValue={job.data.name as string}
+                          defaultValue={job.data.name}
+                          onChange={(e) => onUpdateNode(job.id, {
+                            name: e.target.value
+                          })}
                         />
+                      </div>
+                    </div>
+                    <div className='flex flex-col gap-1'>
+                      <h4 className='text-[10px] text-muted-foreground'>runs-on</h4>
+                      <div
+                        className='px-[2px]'
+                      >
+                        <Select 
+                          defaultValue={job.data["runs-on"]}
+                          onValueChange={(value) => onUpdateNode(job.id, {
+                            "runs-on": value
+                          })}
+                          >
+                          <SelectTrigger className="rounded-sm text-xs placeholder:!text-gray-400">
+                            <SelectValue placeholder="実行環境を選択" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {runsOnOptions.map((run) => (
+                              <SelectItem value={run.value} key={run.value} className="text-xs">{run.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
                   </AccordionContent>
@@ -136,7 +195,7 @@ export const Sidebar = () => {
                   <AccordionTrigger
                     className='py-2 hover:no-underline outline-none [line-break:anywhere]'
                   >
-                    {(step.data.name as string) ? step.data.name as string : `${step.id}`}
+                    {(step.data.name) ? step.data.name : `${step.id}`}
                   </AccordionTrigger>
                   <AccordionContent className='flex flex-col gap-2'>
                     <div className='flex flex-col gap-1'>
@@ -146,7 +205,10 @@ export const Sidebar = () => {
                       >
                         <Input
                           className='h-7 px-2 text-xs rounded-sm'
-                          defaultValue={step.data.name as string}
+                          defaultValue={step.data.name}
+                          onChange={(e) => onUpdateNode(step.id, {
+                            name: e.target.value
+                          })}
                         />
                       </div>
                     </div>
@@ -157,7 +219,10 @@ export const Sidebar = () => {
                       >
                         <Textarea
                           className='px-2 text-xs rounded-sm resize-none'
-                          defaultValue={step.data.run as string}
+                          defaultValue={step.data.run}
+                          onChange={(e) => onUpdateNode(step.id, {
+                            run: e.target.value
+                          })}
                         />
                       </div>
                     </div>

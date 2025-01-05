@@ -1,11 +1,12 @@
-import { Connection, Edge, Handle, Position } from "@xyflow/react";
+import { Connection, Edge, Handle, Node, NodeProps, Position } from "@xyflow/react";
 import { NetworkIcon } from "lucide-react";
 import { memo } from "react";
 import { CustomSourceHandle } from "./custom-source-handle";
 import { useAtomValue } from "jotai";
 import { nodesAtom } from "./react-flow";
+import { WorkflowData } from "../types/workflow-data";
 
-export const WorkflowNode = memo(() => {
+export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
   const nodes = useAtomValue(nodesAtom);
 
   const isValidSourceConnection = (connection: Connection | Edge) => {
@@ -22,7 +23,7 @@ export const WorkflowNode = memo(() => {
           <NetworkIcon
             className='size-3'
           />
-          <p className='text-xs'>ワークフロー名</p>
+          <p className='text-xs'>{data.name}</p>
         </div>
         <div className='px-3 text-[10px]'>
           <h3>on: </h3>

@@ -1,12 +1,13 @@
-import { Connection, Edge, Handle, Position } from "@xyflow/react";
+import { Connection, Edge, Handle, Node, NodeProps, Position } from "@xyflow/react";
 import { BoxIcon } from "lucide-react";
 import { memo } from "react";
 import { CustomSourceHandle } from "./custom-source-handle";
 import { CustomTargetHandle } from "./custom-target-handle";
 import { useAtomValue } from "jotai";
 import { connectionAtom, nodesAtom } from "./react-flow";
+import { StepData } from "../types/step-data";
 
-export const StepNode = memo(() => {
+export const StepNode = memo(({ id, data }: NodeProps<Node<StepData>>) => {
   const nodes = useAtomValue(nodesAtom);
   const connection = useAtomValue(connectionAtom);
   const sourceNode = nodes.find(node => node.id === connection?.source);
@@ -32,12 +33,14 @@ export const StepNode = memo(() => {
           <BoxIcon
             className='size-3'
           />
-          <p className='text-xs'>ステップ名</p>
+          <p className='text-xs'>{data.name ? data.name : id}</p>
         </div>
-        <div className='px-3 text-[10px]'>
-          <h3>runs-on: </h3>
-          <p className='leading-[1] text-gray-500'>rtCamp/action-slack-notify@v2</p>
-        </div>
+        {data.uses && (
+          <div className='px-3 text-[10px]'>
+            <h3>uses: </h3>
+            <p className='leading-[1] text-gray-500'>{data.uses}</p>
+          </div>
+        )}
         <div className='px-3 text-[10px]'>
           <h3>run: </h3>
           <p className='leading-[1] text-gray-500'>

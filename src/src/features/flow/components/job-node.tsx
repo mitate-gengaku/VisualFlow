@@ -1,12 +1,13 @@
-import { Connection, Edge, Handle, Position } from "@xyflow/react";
+import { Connection, Edge, Handle, Node, NodeProps, Position } from "@xyflow/react";
 import { LayoutGridIcon } from "lucide-react";
 import { memo } from "react";
 import { CustomSourceHandle } from "./custom-source-handle";
 import { CustomTargetHandle } from "./custom-target-handle";
 import { useAtomValue } from "jotai";
 import { nodesAtom } from "./react-flow";
+import { JobData } from "../types/job-data";
 
-export const JobNode = memo(() => {
+export const JobNode = memo(({ data }: NodeProps<Node<JobData>>) => {
   const nodes = useAtomValue(nodesAtom);
 
   const isValidSourceConnection = (connection: Connection | Edge) => {
@@ -30,16 +31,14 @@ export const JobNode = memo(() => {
           <LayoutGridIcon
             className='size-3'
           />
-          <p className='text-xs'>ジョブ名</p>
+          <p className='text-xs'>{data.name}</p>
         </div>
-        <div className='px-3 text-[10px]'>
-          <h3>runs-on: </h3>
-          <p className='leading-[1] text-gray-500'>ubuntu-latest</p>
-        </div>
-        <div className='px-3 text-[10px]'>
-          <h3>timeout-minutes: </h3>
-          <p className='leading-[1] text-gray-500'>30</p>
-        </div>
+        {data["runs-on"] && (
+          <div className='px-3 text-[10px]'>
+            <h3>runs-on: </h3>
+            <p className='leading-[1] text-gray-500'>{data["runs-on"]}</p>
+          </div>
+        )}
       </div>
       <CustomTargetHandle
         type='target'

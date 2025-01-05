@@ -123,6 +123,6 @@ export class TransformDataClass {
     const replaced = this.replaceIdsWithNodes(tree, this.nodes);
     const result = this.convertToWorkflowFormat(replaced);
 
-    return YAML.stringify(result).replace("~", " ");
+    return YAML.stringify(result);
   }
 }
