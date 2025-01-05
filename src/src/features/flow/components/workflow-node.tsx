@@ -25,13 +25,16 @@ export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
           />
           <p className='text-xs'>{data.name}</p>
         </div>
-        <div className='px-3 text-[10px]'>
-          <h3>on: </h3>
-          <ul className='px-4'>
-            <li className='list-disc text-gray-500 leading-3'>push</li>
-            <li className='list-disc text-gray-500 leading-3'>workflow_dispatch</li>
-          </ul>
-        </div>
+        {data.on && (
+          <div className='px-3 text-[10px]'>
+            <h3>on: </h3>
+            <ul className='px-4'>
+              {Object.keys(data.on).map((on) => (
+                <li className='list-disc text-gray-500 leading-3' key={on}>{on}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <CustomSourceHandle
         type='source'

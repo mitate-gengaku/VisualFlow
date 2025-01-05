@@ -9,55 +9,67 @@ import { useMemo } from "react"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { v4 as uuidv4 } from 'uuid';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select"
 import { Node, NodeProps } from "@xyflow/react"
 import { WorkflowData } from "@/features/flow/types/workflow-data"
 import { StepData } from "@/features/flow/types/step-data"
 import { JobData } from "@/features/flow/types/job-data"
 
-const runsOnOptions = [
+const onOptions = [
   {
-    label: "ubuntu-latest",
-    value: "ubuntu-latest"
-  },
-  
-  {
-    label: "ubuntu-24.04",
-    value: "ubuntu-24.04"
-  },
-  {
-    label: "ubuntu-22.04",
-    value: "ubuntu-22.04"
-  },
-  {
-    label: "ubuntu-20.04",
-    value: "ubuntu-20.04"
-  },
-  {
-    label: "windows-latest",
-    value: "windows-latest"
-  },  
-  {
-    label: "windows-2022",
-    value: "windows-2022"
-  },
-  {
-    label: "windows-2019",
-    value: "windows-2019"
-  },
-  {
-    label: "macos-13",
-    value: "macos-13"
-  },
-  {
-    label: "macos-latest",
-    value: "macos-latest"
-  },
-  {
-    label: "macos-14",
-    value: "macos-14"
+    label: "workflow_dispatch",
+    value: "workflow_dispatch",
   }
 ]
+const runsOnOptions: Record<"ubuntu" | "windows" | "mac", { label: string, value: string }[]> = {
+  "ubuntu": [
+    {
+      label: "ubuntu-latest",
+      value: "ubuntu-latest"
+    },
+    
+    {
+      label: "ubuntu-24.04",
+      value: "ubuntu-24.04"
+    },
+    {
+      label: "ubuntu-22.04",
+      value: "ubuntu-22.04"
+    },
+    {
+      label: "ubuntu-20.04",
+      value: "ubuntu-20.04"
+    }
+  ],
+  "windows": [
+    {
+      label: "windows-latest",
+      value: "windows-latest"
+    },  
+    {
+      label: "windows-2022",
+      value: "windows-2022"
+    },
+    {
+      label: "windows-2019",
+      value: "windows-2019"
+    }
+  ],
+  "mac": [
+    {
+      label: "macos-13",
+      value: "macos-13"
+    },
+    {
+      label: "macos-latest",
+      value: "macos-latest"
+    },
+    {
+      label: "macos-14",
+      value: "macos-14"
+    }
+  ]
+}
 
 export const Sidebar = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
@@ -74,6 +86,8 @@ export const Sidebar = () => {
     return nodes.filter((v) => v.type === "step")
   }, [nodes]) as Node<StepData>[];
 
+  console.log(workflows)
+
   const onCreateNode = (type: "workflow" | "job" | "step") => {
     if (type === "workflow" && workflows.length) return;
     if (type === "job" && jobs.length >= 20) return;
@@ -88,6 +102,9 @@ export const Sidebar = () => {
           },
           data: {
             name: `workflow${workflows.length + 1}`,
+            on: {
+              "workflow_dispatch": {}
+            }
           },
           type: type
         }]);
@@ -181,6 +198,30 @@ export const Sidebar = () => {
                         />
                       </div>
                     </div>
+                    <div className='flex flex-col gap-1'>
+                      <h4 className='text-[10px] text-muted-foreground'>on</h4>
+                      <div
+                        className='px-[2px]'
+                        >
+                        <Select 
+                          defaultValue={Object.keys(workflow.data.on)[0]}
+                          onValueChange={(value) => onUpdateNode(workflow.id, {
+                            on: {
+                              [value]: {}
+                            }
+                          })}
+                          >
+                          <SelectTrigger className="rounded-sm text-xs placeholder:!text-gray-400">
+                            <SelectValue placeholder="イベントを選択" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {onOptions.map((on) => (
+                              <SelectItem value={on.value} key={on.value} className="text-xs">{on.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -236,8 +277,17 @@ export const Sidebar = () => {
                             <SelectValue placeholder="実行環境を選択" />
                           </SelectTrigger>
                           <SelectContent>
-                            {runsOnOptions.map((run) => (
-                              <SelectItem value={run.value} key={run.value} className="text-xs">{run.label}</SelectItem>
+                            {Object.keys(runsOnOptions).map((os) => (
+                              <SelectGroup key={os}>
+                                <SelectLabel className="text-sm">{os}</SelectLabel>
+                                {runsOnOptions[os as "ubuntu" | "windows" | "mac"].map((option) => (
+                                  <SelectItem 
+                                    key={option.value} 
+                                    value={option.value}
+                                    className="text-gray-500 text-xs"
+                                    >{option.label}</SelectItem>
+                                ))}
+                              </SelectGroup>
                             ))}
                           </SelectContent>
                         </Select>

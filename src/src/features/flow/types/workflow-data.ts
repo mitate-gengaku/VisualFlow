@@ -1,4 +1,4 @@
 export type WorkflowData = {
   name: string;
-  on: { [key: string]: string }
+  on: { [key: string]: string | {} }
 }
