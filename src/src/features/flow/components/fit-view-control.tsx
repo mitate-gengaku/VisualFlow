@@ -8,7 +8,9 @@ export const FitViewControl = () => {
   } = useReactFlow();
 
   const onFitViewHandler = () => {
-    fitView()
+    fitView({
+      duration: 1000
+    })
   };
 
   return (

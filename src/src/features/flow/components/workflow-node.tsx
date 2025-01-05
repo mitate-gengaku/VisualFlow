@@ -1,11 +1,12 @@
-import { Connection, Edge, Handle, Position } from "@xyflow/react";
+import { Connection, Edge, Handle, Node, NodeProps, Position } from "@xyflow/react";
 import { NetworkIcon } from "lucide-react";
 import { memo } from "react";
 import { CustomSourceHandle } from "./custom-source-handle";
 import { useAtomValue } from "jotai";
 import { nodesAtom } from "./react-flow";
+import { WorkflowData } from "../types/workflow-data";
 
-export const WorkflowNode = memo(() => {
+export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
   const nodes = useAtomValue(nodesAtom);
 
   const isValidSourceConnection = (connection: Connection | Edge) => {
@@ -17,25 +18,28 @@ export const WorkflowNode = memo(() => {
 
   return (
     <>
-      <div className='pb-4 text-sm border bg-white flex w-64 max-w-64 flex-col gap-1 rounded shadow'>
+      <div className='font-noto-sans-jp pb-4 text-sm border bg-white flex w-64 max-w-64 flex-col gap-2 rounded shadow'>
         <div className='flex items-center gap-2 py-2 bg-slate-50 px-3'>
           <NetworkIcon
-            className='size-2.5'
+            className='size-3'
           />
-          <p className='text-xs'>ワークフロー名</p>
+          <p className='text-xs'>{data.name}</p>
         </div>
-        <div className='px-3 text-[10px]'>
-          <h3>on: </h3>
-          <ul className='px-4'>
-            <li className='list-disc text-gray-500 leading-3'>push</li>
-            <li className='list-disc text-gray-500 leading-3'>workflow_dispatch</li>
-          </ul>
-        </div>
+        {data.on && (
+          <div className='px-3 text-[10px]'>
+            <h3>on: </h3>
+            <ul className='px-4'>
+              {Object.keys(data.on).map((on) => (
+                <li className='list-disc text-gray-500 leading-3' key={on}>{on}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <CustomSourceHandle
         type='source'
         position={Position.Right}
-        connectionLimit={2}
+        connectionLimit={20}
         isValidConnection={isValidSourceConnection}
         />
     </>

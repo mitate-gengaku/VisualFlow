@@ -8,7 +8,9 @@ export const ZoomInControl = () => {
   } = useReactFlow();
 
   const onZoomInHander = () => {
-    zoomIn();
+    zoomIn({
+      duration: 1000,
+    });
   }
 
   return (
