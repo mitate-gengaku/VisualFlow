@@ -36,7 +36,7 @@ export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
       <CustomSourceHandle
         type='source'
         position={Position.Right}
-        connectionLimit={2}
+        connectionLimit={20}
         isValidConnection={isValidSourceConnection}
         />
     </>

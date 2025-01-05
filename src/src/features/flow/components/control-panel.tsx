@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/utils/cn"
 import { SaveNodeControl } from "./save-node-control"
 import { DownloadControl } from "@/features/download/components/download-control"
+import { ZoomLevel } from "./zoom-level"
 
 export const ControlPanel = () => {
   return (
@@ -22,6 +23,7 @@ export const ControlPanel = () => {
           )}
           >
           <ZoomInControl />
+          <ZoomLevel />
           <ZoomOutControl />
           <FitViewControl />
           <SaveNodeControl />

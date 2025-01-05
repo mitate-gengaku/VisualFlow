@@ -6,6 +6,8 @@ import { CustomTargetHandle } from "./custom-target-handle";
 import { useAtomValue } from "jotai";
 import { connectionAtom, nodesAtom } from "./react-flow";
 import { StepData } from "../types/step-data";
+import Markdown from "react-markdown"
+import remarkBreaks from "remark-breaks";
 
 export const StepNode = memo(({ id, data }: NodeProps<Node<StepData>>) => {
   const nodes = useAtomValue(nodesAtom);
@@ -24,7 +26,7 @@ export const StepNode = memo(({ id, data }: NodeProps<Node<StepData>>) => {
 
     if (!targetNode) return false;
     return targetNode.type === "job"
-  }
+  }  
 
   return (
     <>
@@ -35,23 +37,24 @@ export const StepNode = memo(({ id, data }: NodeProps<Node<StepData>>) => {
           />
           <p className='text-xs'>{data.name ? data.name : id}</p>
         </div>
-        {data.uses && (
+        {data.run && (
           <div className='px-3 text-[10px]'>
-            <h3>uses: </h3>
-            <p className='leading-[1] text-gray-500'>{data.uses}</p>
+            <h3>run: </h3>
+            <Markdown
+              remarkPlugins={[
+                remarkBreaks
+              ]}
+              className='leading-[1] text-gray-500'
+              >
+              {data.run}
+            </Markdown>
           </div>
         )}
-        <div className='px-3 text-[10px]'>
-          <h3>run: </h3>
-          <p className='leading-[1] text-gray-500'>
-            docker compose run --rm app npm run dev
-          </p>
-        </div>
       </div>
       <CustomTargetHandle
         type='target'
         position={Position.Left}
-        connectionLimit={sourceNode?.type === "job" ? 2 : 1}
+        connectionLimit={sourceNode?.type === "step" ? 1 : 20}
         isValidConnection={isValidTargetConnection}
         />
       <CustomSourceHandle

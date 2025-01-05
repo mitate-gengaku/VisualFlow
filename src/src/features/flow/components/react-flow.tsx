@@ -33,7 +33,7 @@ const initialNodes: Node[] = [
       "data": {
           "name": "workflow1",
           "on": {
-            "workflow_dispatch": null
+            "workflow_dispatch": {}
           }
       },
       "position": {
@@ -112,21 +112,6 @@ const initialNodes: Node[] = [
           "height": 98
       }
   },
-  {
-      "id": "0IaZQFAgSX36gOf9UwDrEB==",
-      "data": {
-          "run": "echo 'Hello World'",
-      },
-      "position": {
-          "x": 1200,
-          "y": 200
-      },
-      "type": "step",
-      "measured": {
-          "width": 256,
-          "height": 98
-      }
-  }
 ]
  
 const initialEdges: Edge[] = [

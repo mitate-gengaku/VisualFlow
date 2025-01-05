@@ -17,8 +17,45 @@ import { JobData } from "@/features/flow/types/job-data"
 
 const runsOnOptions = [
   {
-    value: "ubuntu-latest",
-    label: "ubuntu-latest"
+    label: "ubuntu-latest",
+    value: "ubuntu-latest"
+  },
+  
+  {
+    label: "ubuntu-24.04",
+    value: "ubuntu-24.04"
+  },
+  {
+    label: "ubuntu-22.04",
+    value: "ubuntu-22.04"
+  },
+  {
+    label: "ubuntu-20.04",
+    value: "ubuntu-20.04"
+  },
+  {
+    label: "windows-latest",
+    value: "windows-latest"
+  },  
+  {
+    label: "windows-2022",
+    value: "windows-2022"
+  },
+  {
+    label: "windows-2019",
+    value: "windows-2019"
+  },
+  {
+    label: "macos-13",
+    value: "macos-13"
+  },
+  {
+    label: "macos-latest",
+    value: "macos-latest"
+  },
+  {
+    label: "macos-14",
+    value: "macos-14"
   }
 ]
 
@@ -39,19 +76,53 @@ export const Sidebar = () => {
 
   const onCreateNode = (type: "workflow" | "job" | "step") => {
     if (type === "workflow" && workflows.length) return;
-    if (type === "job" && jobs.length >= 10) return;
+    if (type === "job" && jobs.length >= 20) return;
 
-    setNodes([...nodes, {
-      id: uuidv4(),
-      position: {
-        x: type === "workflow" ? 0 : type === "job" ? 400 : 800,
-        y: type === "workflow" ? workflows.length * 200 : type === "job" ? jobs.length * 200 : steps.length * 200
-      },
-      data: {
-        name: ""
-      },
-      type: type
-    }])
+    switch(type) {
+      case "workflow":
+        setNodes([...nodes, {
+          id: uuidv4(),
+          position: {
+            x: 0,
+            y: workflows.length * 200,
+          },
+          data: {
+            name: `workflow${workflows.length + 1}`,
+          },
+          type: type
+        }]);
+        break;
+
+      case "job":
+        setNodes([...nodes, {
+          id: uuidv4(),
+          position: {
+            x: 400,
+            y: jobs.length * 200,
+          },
+          data: {
+            name: `job${jobs.length + 1}`,
+            "runs-on": "ubuntu-latest",
+            job_id: `job_${jobs.length + 1}`,
+          },
+          type: type
+        }]);
+        break;
+
+      default:
+        setNodes([...nodes, {
+          id: uuidv4(),
+          position: {
+            x: 800,
+            y: steps.length * 200,
+          },
+          data: {
+            run: "echo 'Hello World'"
+          },
+          type: type
+        }]);
+        break;
+    }
   }
 
   const onUpdateNode = (id: string, newData: Partial<Node<WorkflowData | JobData | StepData>["data"]>) => {
@@ -223,6 +294,7 @@ export const Sidebar = () => {
                           onChange={(e) => onUpdateNode(step.id, {
                             run: e.target.value
                           })}
+                          rows={5}
                         />
                       </div>
                     </div>

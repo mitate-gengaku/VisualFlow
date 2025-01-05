@@ -9,7 +9,7 @@ export const ZoomInControl = () => {
 
   const onZoomInHander = () => {
     zoomIn({
-      duration: 1000
+      duration: 1000,
     });
   }
 
