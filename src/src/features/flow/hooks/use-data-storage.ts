@@ -1,5 +1,5 @@
 import { useAtom, useSetAtom } from "jotai"
-import { edgesAtom, instanceAtom, nodesAtom } from "../components/react-flow"
+import { edgesAtom, FlowData, nodesAtom, saveDataAtom } from "../components/react-flow"
 import { useCallback } from "react";
 import { useReactFlow } from "@xyflow/react";
 import { toast } from "sonner";
@@ -7,7 +7,7 @@ import { toast } from "sonner";
 export const useDataStorage = () => {
   const setNodes = useSetAtom(nodesAtom);
   const setEdges = useSetAtom(edgesAtom);
-  const [instance, setInstance] = useAtom(instanceAtom);
+  const [saveData, setSaveData] = useAtom(saveDataAtom);
   const {
     toObject,
     setViewport
@@ -23,9 +23,22 @@ export const useDataStorage = () => {
    */
   const onSave = useCallback(() => {
     const data = toObject();
-    setInstance(data);
+
+    if (saveData) {
+      setSaveData({
+        ...data,
+        created_at: saveData.created_at,
+        updated_at: new Date().toISOString(),
+      });
+    } else {
+      setSaveData({
+        ...data,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      });
+    }
     toast.success("保存しました")
-  }, []);
+  }, [saveData]);
 
 
 
@@ -42,7 +55,7 @@ export const useDataStorage = () => {
    * @returns void
    */
   const onRestore = useCallback(() => {
-    if (!instance) {
+    if (!saveData) {
       return;
     }
 
@@ -50,17 +63,37 @@ export const useDataStorage = () => {
       nodes,
       edges,
       viewport
-    } = instance;
+    } = saveData;
 
     setNodes(nodes);
     setEdges(edges);
     setViewport(viewport);
 
     toast.success("データを復元しました")
-  }, [instance]);
+  }, [saveData]);
+
+  const onRestoreFromParams = (data: FlowData | undefined) => {
+    if (!data) {
+      return;
+    }
+
+    const {
+      nodes,
+      edges,
+      viewport
+    } = data;
+
+    setNodes(nodes);
+    setEdges(edges);
+    setViewport(viewport);
+
+    toast.success("データを復元しました")
+  };
+
 
   return {
     onSave,
-    onRestore
+    onRestore,
+    onRestoreFromParams
   }
 }

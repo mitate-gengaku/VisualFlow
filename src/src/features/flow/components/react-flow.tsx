@@ -153,14 +153,19 @@ const initialEdges: Edge[] = [
 ];
 
 const generateStorageKey = () => {
-  return new Date().toLocaleDateString("sv-SV").toString()
+  return `save-data-${new Date().toLocaleDateString("sv-SV").toString()}`
+}
+
+export interface FlowData extends ReactFlowJsonObject<Node, Edge> {
+  created_at: string;
+  updated_at: string;
 }
 
 export const nodesAtom = atom<Node[]>(initialNodes)
 export const edgesAtom = atom<Edge[]>(initialEdges)
 export const connectionAtom = atom<Connection | undefined>(undefined)
 export const workflowCodeAtom = atom<string>("");
-export const instanceAtom = atomWithStorage<ReactFlowJsonObject<Node, Edge> | undefined>(generateStorageKey(), undefined)
+export const saveDataAtom = atomWithStorage<FlowData | undefined>(generateStorageKey(), undefined)
  
 export const Flow = () => {
   const edgeReconnectSuccessful = useRef(true);
