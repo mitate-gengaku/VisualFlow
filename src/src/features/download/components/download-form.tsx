@@ -12,7 +12,7 @@ export const DownloadForm = () => {
       onSubmit={onDownload}
       >
       <div className="flex flex-col gap-2">
-        <Label className="text-xs text-gray-500">YAMLファイルがダウンロードされます。</Label>
+        <Label className="w-fit text-xs text-gray-500 cursor-text">YAMLファイルがダウンロードされます</Label>
         <Button>ダウンロード</Button>
       </div>
     </form>

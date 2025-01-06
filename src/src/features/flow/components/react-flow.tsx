@@ -26,6 +26,7 @@ import { JobNode } from './job-node';
 import { StepNode } from './step-node';
 import { ErrorEdge } from './error-edge';
 import { atomWithStorage } from 'jotai/utils';
+import { showControlAtom, showMinimapAtom } from '@/components/layout/header';
 
 const initialNodes: Node[] = [
   {
@@ -165,6 +166,9 @@ export const instanceAtom = atomWithStorage<ReactFlowJsonObject<Node, Edge> | un
 export const Flow = () => {
   const edgeReconnectSuccessful = useRef(true);
 
+  const isShowControl = useAtomValue(showControlAtom);
+  const isShowMinimap = useAtomValue(showMinimapAtom);
+
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
   const setConnection = useSetAtom(connectionAtom);
@@ -237,9 +241,13 @@ export const Flow = () => {
       panOnDrag={[1, 2]}
       selectionMode={SelectionMode.Partial}
       >
-      <ControlPanel />
+      {isShowControl && (
+        <ControlPanel />
+      )}
       <Background />
-      <MiniMap />
+      {isShowMinimap && (
+        <MiniMap />
+      )}
     </ReactFlow>
   )
 }

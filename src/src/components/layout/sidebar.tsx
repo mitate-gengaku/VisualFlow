@@ -86,8 +86,6 @@ export const Sidebar = () => {
     return nodes.filter((v) => v.type === "step")
   }, [nodes]) as Node<StepData>[];
 
-  console.log(workflows)
-
   const onCreateNode = (type: "workflow" | "job" | "step") => {
     if (type === "workflow" && workflows.length) return;
     if (type === "job" && jobs.length >= 20) return;
