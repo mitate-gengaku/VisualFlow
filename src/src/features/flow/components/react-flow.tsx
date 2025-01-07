@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import {
   ReactFlow,
   Controls,
@@ -18,6 +18,7 @@ import {
   OnInit,
   ReactFlowJsonObject,
   reconnectEdge,
+  getConnectedEdges,
 } from '@xyflow/react'; 
 import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { ControlPanel } from './control-panel';
@@ -26,6 +27,7 @@ import { JobNode } from './job-node';
 import { StepNode } from './step-node';
 import { ErrorEdge } from './error-edge';
 import { atomWithStorage } from 'jotai/utils';
+import { TransformDataClass } from '@/features/download/utils/transform-data';
 
 const initialNodes: Node[] = [
   {
@@ -172,6 +174,7 @@ export const Flow = () => {
 
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
+  const [workflowCode, setWorkflowCode] = useAtom(workflowCodeAtom);
   const setConnection = useSetAtom(connectionAtom);
  
   const onNodesChange = useCallback(

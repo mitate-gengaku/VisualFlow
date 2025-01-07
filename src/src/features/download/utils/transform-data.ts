@@ -120,7 +120,14 @@ export class TransformDataClass {
 
   generateYaml() {
     const tree = this.transformData(this.edges);
-    const replaced = this.replaceIdsWithNodes(tree, this.nodes);
+    const replaced = this
+      .replaceIdsWithNodes(tree, this.nodes)
+      .filter((v) => v.type === "workflow");
+
+    if (!replaced.length) {
+      return "接続が正しくありません。"
+    }
+    
     const result = this.convertToWorkflowFormat(replaced);
 
     return YAML.stringify(result);

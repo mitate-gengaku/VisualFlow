@@ -61,26 +61,12 @@ export const useDownload = () => {
   }
 
   useEffect(() => {
-    const workflow = nodes.filter((v) => v.type === "workflow")[0];
-
-    if (!workflow) {
-      setWorkflowCode("ワークフローが接続されていません");
-      return;
-    }
-
-    const findWorkflow = edges.find((v) => v.source === workflow.id);
-
     const connectedEdges = getConnectedEdges(nodes, edges);
 
     if (!connectedEdges.length) {
       setWorkflowCode("接続されたノードが見つかりません");
       return;
     };
-
-    if (!findWorkflow) {
-      setWorkflowCode("ワークフローが接続されていません");
-      return;
-    }
 
     const TransformData = new TransformDataClass(nodes, connectedEdges);
 
