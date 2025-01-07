@@ -21,11 +21,9 @@ import { atomWithStorage } from "jotai/utils";
 import { useCallback, useRef } from "react";
 
 import { ControlPanel } from "@/features/flow/components/controls/control-panel";
-import { ErrorEdge } from "@/features/flow/components/error-edge";
-import { JobNode } from "@/features/flow/components/job-node";
-import { StepNode } from "@/features/flow/components/step-node";
-import { WorkflowNode } from "@/features/flow/components/workflow-node";
-
+import { JobNode } from "@/features/flow/components/node/job-node";
+import { StepNode } from "@/features/flow/components/node/step-node";
+import { WorkflowNode } from "@/features/flow/components/node/workflow-node";
 import { initialEdges } from "@/features/flow/config/initial/edge";
 import { initialNodes } from "@/features/flow/config/initial/node";
 
@@ -139,10 +137,6 @@ export const Flow = () => {
     step: StepNode,
   };
 
-  const edgeTypes = {
-    error: ErrorEdge,
-  };
-
   return (
     <ReactFlow
       nodes={nodes}
@@ -155,7 +149,6 @@ export const Flow = () => {
       onReconnectEnd={onReconnectEnd}
       isValidConnection={isValidConnection}
       nodeTypes={nodeTypes}
-      edgeTypes={edgeTypes}
       snapToGrid={true}
       snapGrid={[25, 25]}
       fitView

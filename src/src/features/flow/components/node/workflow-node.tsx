@@ -3,7 +3,6 @@ import { NetworkIcon } from "lucide-react";
 import { memo } from "react";
 
 import { CustomSourceHandle } from "@/features/flow/components/custom-source-handle";
-
 import { WorkflowData } from "@/features/flow/types/workflow-data";
 
 export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
