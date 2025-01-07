@@ -5,9 +5,9 @@ import { memo } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 
-import { CustomSourceHandle } from "./custom-source-handle";
-import { CustomTargetHandle } from "./custom-target-handle";
-import { connectionAtom, nodesAtom } from "./react-flow";
+import { CustomSourceHandle } from "@/features/flow/components/custom-source-handle";
+import { CustomTargetHandle } from "@/features/flow/components/custom-target-handle";
+import { connectionAtom, nodesAtom } from "@/features/flow/components/react-flow";
 
 import { StepData } from "@/features/flow/types/step-data";
 

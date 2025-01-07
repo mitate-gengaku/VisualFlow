@@ -20,11 +20,11 @@ import { atom, useAtom, useSetAtom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import { useCallback, useRef } from "react";
 
-import { ControlPanel } from "./control-panel";
-import { ErrorEdge } from "./error-edge";
-import { JobNode } from "./job-node";
-import { StepNode } from "./step-node";
-import { WorkflowNode } from "./workflow-node";
+import { ControlPanel } from "@/features/flow/components/controls/control-panel";
+import { ErrorEdge } from "@/features/flow/components/error-edge";
+import { JobNode } from "@/features/flow/components/job-node";
+import { StepNode } from "@/features/flow/components/step-node";
+import { WorkflowNode } from "@/features/flow/components/workflow-node";
 
 import { initialEdges } from "@/features/flow/config/initial/edge";
 import { initialNodes } from "@/features/flow/config/initial/node";
@@ -96,6 +96,43 @@ export const Flow = () => {
     [],
   );
 
+  const isValidConnection = (connection: Connection | Edge) => {
+    const { source, target } = connection;
+
+    const sourceNode = nodes.find((node) => node.id === source);
+    const targetNode = nodes.find((node) => node.id === target);
+
+    const exist = edges.find((edge) => edge.target === target);
+    const existNode = exist && nodes.find((node) => node.id === exist.source);
+    const existNodeTypeIsJob = existNode && existNode.type === "job";
+
+    if (!sourceNode || !targetNode) return false;
+
+    if (source === target) return false;
+
+    if (
+      sourceNode.type === "job" &&
+      targetNode.type === "step" &&
+      exist &&
+      !existNodeTypeIsJob
+    )
+      return false;
+    if (sourceNode.type === "step" && targetNode.type === "step" && exist)
+      return false;
+
+    if (sourceNode.type === "workflow" && targetNode.type === "job")
+      return true;
+    if (sourceNode.type === "workflow" && targetNode.type === "step")
+      return false;
+
+    if (sourceNode.type === "job" && targetNode.type === "step") return true;
+
+    if (sourceNode.type === "step" && targetNode.type === "step") return true;
+    if (source === target) return false;
+
+    return false;
+  };
+
   const nodeTypes = {
     workflow: WorkflowNode,
     job: JobNode,
@@ -116,45 +153,7 @@ export const Flow = () => {
       onReconnectStart={onReconnectStart}
       onReconnect={onReconnect}
       onReconnectEnd={onReconnectEnd}
-      isValidConnection={(connection) => {
-        const { source, target } = connection;
-
-        const sourceNode = nodes.find((node) => node.id === source);
-        const targetNode = nodes.find((node) => node.id === target);
-
-        const exist = edges.find((edge) => edge.target === target);
-        const existNode =
-          exist && nodes.find((node) => node.id === exist.source);
-        const existNodeTypeIsJob = existNode && existNode.type === "job";
-
-        if (!sourceNode || !targetNode) return false;
-
-        if (source === target) return false;
-
-        if (
-          sourceNode.type === "job" &&
-          targetNode.type === "step" &&
-          exist &&
-          !existNodeTypeIsJob
-        )
-          return false;
-        if (sourceNode.type === "step" && targetNode.type === "step" && exist)
-          return false;
-
-        if (sourceNode.type === "workflow" && targetNode.type === "job")
-          return true;
-        if (sourceNode.type === "workflow" && targetNode.type === "step")
-          return false;
-
-        if (sourceNode.type === "job" && targetNode.type === "step")
-          return true;
-
-        if (sourceNode.type === "step" && targetNode.type === "step")
-          return true;
-        if (source === target) return false;
-
-        return false;
-      }}
+      isValidConnection={isValidConnection}
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       snapToGrid={true}

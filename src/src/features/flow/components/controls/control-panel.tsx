@@ -1,13 +1,12 @@
 import { Controls } from "@xyflow/react";
 
-import { DownloadControl } from "./download-control";
-import { FitViewControl } from "./fit-view-control";
-import { SaveNodeControl } from "./save-node-control";
-import { ZoomInControl } from "./zoom-in-control";
-import { ZoomLevel } from "./zoom-level";
-import { ZoomOutControl } from "./zoom-out-control";
-
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { DownloadControl } from "@/features/flow/components/controls/download-control";
+import { FitViewControl } from "@/features/flow/components/controls/fit-view-control";
+import { SaveNodeControl } from "@/features/flow/components/controls/save-node-control";
+import { ZoomInControl } from "@/features/flow/components/controls/zoom-in-control";
+import { ZoomLevel } from "@/features/flow/components/controls/zoom-level-control";
+import { ZoomOutControl } from "@/features/flow/components/controls/zoom-out-control";
 import { cn } from "@/utils/cn";
 
 export const ControlPanel = () => {

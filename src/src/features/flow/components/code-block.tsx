@@ -1,9 +1,8 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-import { CopyButton } from "./copy-button";
-
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { CopyButton } from "@/features/flow/components/copy-button";
 import { useDownload } from "@/features/flow/hooks/use-download";
 
 export const CodeBlock = () => {

@@ -4,9 +4,6 @@ import { ControlButton } from "@xyflow/react";
 import { UploadIcon } from "lucide-react";
 import { useState } from "react";
 
-import { CodeBlock } from "./code-block";
-import { DownloadForm } from "./download-form";
-
 import {
   Dialog,
   DialogContent,
@@ -20,6 +17,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { CodeBlock } from "@/features/flow/components/code-block";
+import { DownloadForm } from "@/features/flow/components/download-form";
 
 export const DownloadControl = () => {
   const [isOpen, setOpen] = useState<boolean>(false);

@@ -1,10 +1,10 @@
 import { Node, NodeProps, Position } from "@xyflow/react";
-import { JobData } from "features/flow/types/job-data";
 import { LayoutGridIcon } from "lucide-react";
 import { memo } from "react";
 
-import { CustomSourceHandle } from "./custom-source-handle";
-import { CustomTargetHandle } from "./custom-target-handle";
+import { CustomSourceHandle } from "@/features/flow/components/custom-source-handle";
+import { CustomTargetHandle } from "@/features/flow/components/custom-target-handle";
+import { JobData } from "@/features/flow/types/job-data";
 
 export const JobNode = memo(({ data }: NodeProps<Node<JobData>>) => {
   return (

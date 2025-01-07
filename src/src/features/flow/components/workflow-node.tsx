@@ -2,7 +2,7 @@ import { Node, NodeProps, Position } from "@xyflow/react";
 import { NetworkIcon } from "lucide-react";
 import { memo } from "react";
 
-import { CustomSourceHandle } from "./custom-source-handle";
+import { CustomSourceHandle } from "@/features/flow/components/custom-source-handle";
 
 import { WorkflowData } from "@/features/flow/types/workflow-data";
 
