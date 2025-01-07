@@ -4,5 +4,4 @@ export interface CustomHandleProps {
   type: "source" | "target";
   position: Position;
   connectionLimit: number;
-  isValidConnection?: IsValidConnection
 }

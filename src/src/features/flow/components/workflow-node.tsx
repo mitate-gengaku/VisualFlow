@@ -1,21 +1,12 @@
 import { Connection, Edge, Handle, Node, NodeProps, Position } from "@xyflow/react";
 import { NetworkIcon } from "lucide-react";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { CustomSourceHandle } from "./custom-source-handle";
 import { useAtomValue } from "jotai";
-import { nodesAtom } from "./react-flow";
+import { edgesAtom, nodesAtom } from "./react-flow";
 import { WorkflowData } from "../types/workflow-data";
 
 export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
-  const nodes = useAtomValue(nodesAtom);
-
-  const isValidSourceConnection = (connection: Connection | Edge) => {
-    const targetNode = nodes.find(node => node.id === connection?.target);
-
-    if (!targetNode) return false;
-    return targetNode.type === "job"
-  }
-
   return (
     <>
       <div className='font-noto-sans-jp pb-4 text-sm border bg-white flex w-64 max-w-64 flex-col gap-2 rounded shadow'>
@@ -40,7 +31,6 @@ export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
         type='source'
         position={Position.Right}
         connectionLimit={20}
-        isValidConnection={isValidSourceConnection}
         />
     </>
   );

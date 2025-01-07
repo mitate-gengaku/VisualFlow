@@ -232,6 +232,33 @@ export const Flow = () => {
       onReconnectStart={onReconnectStart}
       onReconnect={onReconnect}
       onReconnectEnd={onReconnectEnd}
+      isValidConnection={(connection) => {
+        const { source, target } = connection;
+
+        const sourceNode = nodes.find((node) => node.id === source);
+        const targetNode = nodes.find((node) => node.id === target);
+
+        const exist = edges.find((edge) => edge.target === target)
+        const existNode = exist && nodes.find((node) => node.id === exist.source);
+        const existNodeTypeIsJob = existNode && existNode.type === "job"
+
+        if (!sourceNode || !targetNode) return false;
+
+        if (source === target) return false;
+        
+        if (sourceNode.type === "job" && targetNode.type === "step" && exist && !existNodeTypeIsJob) return false;
+        if (sourceNode.type === "step" && targetNode.type === "step" && exist) return false;
+
+        if (sourceNode.type === "workflow" && targetNode.type === "job") return true;
+        if (sourceNode.type === "workflow" && targetNode.type === "step") return false;
+
+        if (sourceNode.type === "job" && targetNode.type === "step") return true;
+
+        if (sourceNode.type === "step" && targetNode.type === "step") return true;
+        if (source === target) return false;
+
+        return false;
+      }}
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       snapToGrid={true}

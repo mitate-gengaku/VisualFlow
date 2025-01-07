@@ -6,7 +6,6 @@ export const CustomTargetHandle = (props: CustomHandleProps) => {
     type,
     position,
     connectionLimit,
-    isValidConnection,
   } = props;
 
   const connections = useHandleConnections({
@@ -19,7 +18,6 @@ export const CustomTargetHandle = (props: CustomHandleProps) => {
       position={position}
       className='!-left-4 !size-3 !border !border-gray-600 !bg-white !rounded-[2px]'
       isConnectable={connections.length < connectionLimit}
-      isValidConnection={isValidConnection}
     />
   )
 }

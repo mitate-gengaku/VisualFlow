@@ -55,13 +55,11 @@ export const StepNode = memo(({ id, data }: NodeProps<Node<StepData>>) => {
         type='target'
         position={Position.Left}
         connectionLimit={sourceNode?.type === "step" ? 1 : 20}
-        isValidConnection={isValidTargetConnection}
         />
       <CustomSourceHandle
         type='source'
         position={Position.Right}
         connectionLimit={1}
-        isValidConnection={isValidSourceConnection}
         />
     </>
   );
