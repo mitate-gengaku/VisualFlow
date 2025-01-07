@@ -1,12 +1,12 @@
-import { Connection, Edge, Node, NodeProps, Position } from "@xyflow/react";
+import { Node, NodeProps, Position } from "@xyflow/react";
 import { useAtomValue } from "jotai";
 import { BoxIcon } from "lucide-react";
 import { memo } from "react";
 import Markdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 
-import { CustomSourceHandle } from "@/features/flow/components/custom-source-handle";
-import { CustomTargetHandle } from "@/features/flow/components/custom-target-handle";
+import { CustomSourceHandle } from "@/features/flow/components/handle/custom-source-handle";
+import { CustomTargetHandle } from "@/features/flow/components/handle/custom-target-handle";
 import {
   connectionAtom,
   nodesAtom,
@@ -17,20 +17,6 @@ export const StepNode = memo(({ id, data }: NodeProps<Node<StepData>>) => {
   const nodes = useAtomValue(nodesAtom);
   const connection = useAtomValue(connectionAtom);
   const sourceNode = nodes.find((node) => node.id === connection?.source);
-
-  const isValidSourceConnection = (connection: Connection | Edge) => {
-    const targetNode = nodes.find((node) => node.id === connection?.target);
-
-    if (!targetNode) return false;
-    return targetNode.type === "step";
-  };
-
-  const isValidTargetConnection = (connection: Connection | Edge) => {
-    const targetNode = nodes.find((node) => node.id === connection?.source);
-
-    if (!targetNode) return false;
-    return targetNode.type === "job";
-  };
 
   return (
     <>
