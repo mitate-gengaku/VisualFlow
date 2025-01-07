@@ -1,4 +1,4 @@
-import { ControlButton, useReactFlow } from "@xyflow/react";
+import { ControlButton } from "@xyflow/react";
 import { MaximizeIcon } from "lucide-react";
 
 import {
@@ -6,15 +6,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useFitView } from "@/features/flow/hooks/use-fit-view";
 
 export const FitViewControl = () => {
-  const { fitView } = useReactFlow();
-
-  const onFitViewHandler = () => {
-    fitView({
-      duration: 1000,
-    });
-  };
+  const { onFitViewHandler } = useFitView();
 
   return (
     <Tooltip>

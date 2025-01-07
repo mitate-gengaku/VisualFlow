@@ -1,4 +1,4 @@
-import { ControlButton, useReactFlow } from "@xyflow/react";
+import { ControlButton } from "@xyflow/react";
 import { PlusIcon } from "lucide-react";
 
 import {
@@ -6,20 +6,15 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useZoomIn } from "@/features/flow/hooks/use-zoom-in";
 
 export const ZoomInControl = () => {
-  const { zoomIn } = useReactFlow();
-
-  const onZoomInHander = () => {
-    zoomIn({
-      duration: 1000,
-    });
-  };
+  const { onZoomInHandler } = useZoomIn();
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <ControlButton onClick={() => onZoomInHander()}>
+        <ControlButton onClick={() => onZoomInHandler()}>
           <PlusIcon />
         </ControlButton>
       </TooltipTrigger>

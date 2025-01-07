@@ -5,10 +5,10 @@ import { toast } from "sonner";
 
 import {
   edgesAtom,
-  FlowData,
   nodesAtom,
   saveDataAtom,
 } from "@/features/flow/components/react-flow";
+import { FlowData } from "@/features/flow/types/flow-data";
 
 export const useDataStorage = () => {
   const setNodes = useSetAtom(nodesAtom);

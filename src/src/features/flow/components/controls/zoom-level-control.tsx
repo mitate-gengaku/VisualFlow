@@ -1,15 +1,16 @@
-import { ControlButton, useReactFlow, useViewport } from "@xyflow/react";
+import { ControlButton } from "@xyflow/react";
 
-export const ZoomLevel = () => {
-  const { zoom } = useViewport();
-  const { zoomTo } = useReactFlow();
+import { useZoomLevel } from "@/features/flow/hooks/use-zoom-level";
+
+export const ZoomLevelControl = () => {
+  const { zoom, onSetZoomLevelHandler } = useZoomLevel();
 
   return (
     <ControlButton
       className="text-[10px]"
-      onClick={() => zoomTo(1, { duration: 1000 })}
+      onClick={() => onSetZoomLevelHandler()}
     >
-      {(100 * zoom).toFixed(0)}%
+      {zoom}%
     </ControlButton>
   );
 };

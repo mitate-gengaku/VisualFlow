@@ -13,7 +13,6 @@ import {
   Connection,
   SelectionMode,
   MiniMap,
-  ReactFlowJsonObject,
   reconnectEdge,
 } from "@xyflow/react";
 import { atom, useAtom, useSetAtom } from "jotai";
@@ -21,20 +20,14 @@ import { atomWithStorage } from "jotai/utils";
 import { useCallback, useRef } from "react";
 
 import { ControlPanel } from "@/features/flow/components/controls/control-panel";
+import { ExportDialog } from "@/features/flow/components/export-dialog";
 import { JobNode } from "@/features/flow/components/node/job-node";
 import { StepNode } from "@/features/flow/components/node/step-node";
 import { WorkflowNode } from "@/features/flow/components/node/workflow-node";
 import { initialEdges } from "@/features/flow/config/initial/edge";
 import { initialNodes } from "@/features/flow/config/initial/node";
-
-const generateStorageKey = () => {
-  return `save-data-${new Date().toLocaleDateString("sv-SV").toString()}`;
-};
-
-export interface FlowData extends ReactFlowJsonObject<Node, Edge> {
-  created_at: string;
-  updated_at: string;
-}
+import { FlowData } from "@/features/flow/types/flow-data";
+import { generateStorageKey } from "@/features/flow/utils/generate-storage-key";
 
 export const nodesAtom = atom<Node[]>(initialNodes);
 export const edgesAtom = atom<Edge[]>(initialEdges);
@@ -163,6 +156,7 @@ export const Flow = () => {
       <ControlPanel />
       <Background />
       <MiniMap />
+      <ExportDialog />
     </ReactFlow>
   );
 };

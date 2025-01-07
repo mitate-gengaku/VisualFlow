@@ -1,4 +1,4 @@
-import { ControlButton, useReactFlow } from "@xyflow/react";
+import { ControlButton } from "@xyflow/react";
 import { MinusIcon } from "lucide-react";
 
 import {
@@ -6,15 +6,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useZoomOut } from "@/features/flow/hooks/use-zoom-out";
 
 export const ZoomOutControl = () => {
-  const { zoomOut } = useReactFlow();
-
-  const onZoomOutHandler = () => {
-    zoomOut({
-      duration: 1000,
-    });
-  };
+  const { onZoomOutHandler } = useZoomOut();
 
   return (
     <Tooltip>

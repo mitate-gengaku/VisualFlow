@@ -1,8 +1,9 @@
 import { Edge, Node } from "@xyflow/react";
-import { ResultNode } from "features/flow/types/result-node";
-import { TreeNode } from "features/flow/types/tree-node";
-import { WorkflowOutput } from "features/flow/types/workflow-output";
 import YAML from "yaml";
+
+import { ResultNode } from "@/features/flow/types/result-node";
+import { TreeNode } from "@/features/flow/types/tree-node";
+import { WorkflowOutput } from "@/features/flow/types/workflow-output";
 
 export class TransformDataClass {
   constructor(
