@@ -1,25 +1,24 @@
 import { ControlButton } from "@xyflow/react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { SaveIcon } from "lucide-react";
-import { useDataStorage } from "@/features/flow/hooks/use-data-storage"
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useDataStorage } from "@/features/flow/hooks/use-data-storage";
 
 export const SaveNodeControl = () => {
-  const {
-    onSave,
-  } = useDataStorage();
+  const { onSave } = useDataStorage();
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <ControlButton
-          onClick={() => onSave()}
-          >
+        <ControlButton onClick={() => onSave()}>
           <SaveIcon className="!fill-white" />
         </ControlButton>
       </TooltipTrigger>
-      <TooltipContent>
-        保存する
-      </TooltipContent>
+      <TooltipContent>保存する</TooltipContent>
     </Tooltip>
-  )
-}
+  );
+};

@@ -1,7 +1,19 @@
-import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { BaseEdge, EdgeLabelRenderer, EdgeProps, getSmoothStepPath, useReactFlow } from "@xyflow/react";
+import {
+  BaseEdge,
+  EdgeLabelRenderer,
+  EdgeProps,
+  getSmoothStepPath,
+  useReactFlow,
+} from "@xyflow/react";
 import { CircleAlertIcon } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function ErrorEdge({
   id,
@@ -27,11 +39,17 @@ export function ErrorEdge({
 
   const onDelete = () => {
     setEdges((es) => es.filter((e) => e.id !== id));
-  }
+  };
 
   return (
     <>
-      <BaseEdge path={edgePath} markerEnd={markerEnd} type="step" style={{ ...style }} className='!stroke-red-600 !z-10' />
+      <BaseEdge
+        path={edgePath}
+        markerEnd={markerEnd}
+        type="step"
+        style={{ ...style }}
+        className="!stroke-red-600 !z-10"
+      />
       <EdgeLabelRenderer>
         <div
           className="nodrag nopan pointer-events-auto absolute"
@@ -45,15 +63,13 @@ export function ErrorEdge({
                 <Button
                   size="icon"
                   variant="outline"
-                  className='bg-red-300 hover:bg-red-400 text-red-600 hover:text-red-700'
+                  className="bg-red-300 hover:bg-red-400 text-red-600 hover:text-red-700"
                   onClick={() => onDelete()}
                 >
                   <CircleAlertIcon />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>
-                この接続は無効です
-              </TooltipContent>
+              <TooltipContent>この接続は無効です</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
