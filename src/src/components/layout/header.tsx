@@ -29,13 +29,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { saveDataAtom } from "@/features/flow/components/react-flow";
+import { saveDataAtom } from "@/features/flow/store/save-data";
 import { useDataStorage } from "@/features/flow/hooks/use-data-storage";
-
-interface FlowData extends ReactFlowJsonObject<Node, Edge> {
-  created_at: string;
-  updated_at: string;
-}
+import { FlowData } from "@/features/flow/types/flow-data";
 
 function getMatchingLocalStorageData(regexPattern: string): FlowData[] {
   const matchingData: FlowData[] = [];
@@ -92,7 +88,10 @@ function getMatchingLocalStorageData(regexPattern: string): FlowData[] {
     }
   }
 
-  return matchingData;
+  const result = matchingData.sort((prev, next) =>
+    new Date(prev.created_at) < new Date(next.created_at) ? 1 : -1,
+  );
+  return result;
 }
 
 export const saveDataDialog = atom<boolean>(false);

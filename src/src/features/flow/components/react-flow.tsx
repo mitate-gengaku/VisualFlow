@@ -15,8 +15,7 @@ import {
   MiniMap,
   reconnectEdge,
 } from "@xyflow/react";
-import { atom, useAtom, useSetAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+import { useAtom, useSetAtom } from "jotai";
 import { useCallback, useRef } from "react";
 
 import { ControlPanel } from "@/features/flow/components/controls/control-panel";
@@ -24,19 +23,9 @@ import { ExportDialog } from "@/features/flow/components/export-dialog";
 import { JobNode } from "@/features/flow/components/node/job-node";
 import { StepNode } from "@/features/flow/components/node/step-node";
 import { WorkflowNode } from "@/features/flow/components/node/workflow-node";
-import { initialEdges } from "@/features/flow/config/initial/edge";
-import { initialNodes } from "@/features/flow/config/initial/node";
-import { FlowData } from "@/features/flow/types/flow-data";
-import { generateStorageKey } from "@/features/flow/utils/generate-storage-key";
-
-export const nodesAtom = atom<Node[]>(initialNodes);
-export const edgesAtom = atom<Edge[]>(initialEdges);
-export const connectionAtom = atom<Connection | undefined>(undefined);
-export const workflowCodeAtom = atom<string>("");
-export const saveDataAtom = atomWithStorage<FlowData | undefined>(
-  generateStorageKey(),
-  undefined,
-);
+import { connectionAtom } from "@/features/flow/store/connection";
+import { edgesAtom } from "@/features/flow/store/edge";
+import { nodesAtom } from "@/features/flow/store/node";
 
 export const Flow = () => {
   const edgeReconnectSuccessful = useRef(true);

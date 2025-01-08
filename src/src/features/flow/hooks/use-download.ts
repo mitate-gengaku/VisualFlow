@@ -5,11 +5,9 @@ import { useAtom, useAtomValue } from "jotai";
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import {
-  edgesAtom,
-  nodesAtom,
-  workflowCodeAtom,
-} from "@/features/flow/components/react-flow";
+import { edgesAtom } from "@/features/flow/store/edge";
+import { nodesAtom } from "@/features/flow/store/node";
+import { workflowCodeAtom } from "@/features/flow/store/workflow-code";
 import { TransformDataClass } from "@/features/flow/utils/transform-data";
 
 export const useDownload = () => {

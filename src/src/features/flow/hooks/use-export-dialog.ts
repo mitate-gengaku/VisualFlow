@@ -1,6 +1,5 @@
-import { atom, useAtom } from "jotai";
-
-const openDialogAtom = atom<boolean>(false);
+import { useAtom } from "jotai";
+import { openDialogAtom } from "../store/open-export-dialog";
 
 export const useExportDialog = () => {
   const [isOpen, setOpen] = useAtom(openDialogAtom);

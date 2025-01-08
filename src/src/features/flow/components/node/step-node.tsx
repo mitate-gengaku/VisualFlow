@@ -7,10 +7,8 @@ import remarkBreaks from "remark-breaks";
 
 import { CustomSourceHandle } from "@/features/flow/components/handle/custom-source-handle";
 import { CustomTargetHandle } from "@/features/flow/components/handle/custom-target-handle";
-import {
-  connectionAtom,
-  nodesAtom,
-} from "@/features/flow/components/react-flow";
+import { connectionAtom } from "@/features/flow/store/connection";
+import { nodesAtom } from "@/features/flow/store/node";
 import { StepData } from "@/features/flow/types/step-data";
 
 export const StepNode = memo(({ id, data }: NodeProps<Node<StepData>>) => {

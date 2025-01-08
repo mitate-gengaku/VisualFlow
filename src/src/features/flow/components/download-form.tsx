@@ -11,7 +11,7 @@ export const DownloadForm = () => {
         <Label className="w-fit text-xs text-gray-500 cursor-text">
           YAMLファイルがダウンロードされます
         </Label>
-        <Button>ダウンロード</Button>
+        <Button className="bg-sky-600 hover:bg-sky-700">ダウンロード</Button>
       </div>
     </form>
   );

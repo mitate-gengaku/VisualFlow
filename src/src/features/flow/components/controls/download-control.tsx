@@ -11,7 +11,7 @@ import {
 import { useExportDialog } from "@/features/flow/hooks/use-export-dialog";
 
 export const DownloadControl = () => {
-  const { isOpen, onOpenHandler } = useExportDialog();
+  const { onOpenHandler } = useExportDialog();
 
   return (
     <Tooltip>

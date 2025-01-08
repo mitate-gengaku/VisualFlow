@@ -3,11 +3,9 @@ import { useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
-import {
-  edgesAtom,
-  nodesAtom,
-  saveDataAtom,
-} from "@/features/flow/components/react-flow";
+import { edgesAtom } from "@/features/flow/store/edge";
+import { nodesAtom } from "@/features/flow/store/node";
+import { saveDataAtom } from "@/features/flow/store/save-data";
 import { FlowData } from "@/features/flow/types/flow-data";
 
 export const useDataStorage = () => {

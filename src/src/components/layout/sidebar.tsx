@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { nodesAtom } from "@/features/flow/components/react-flow";
+import { nodesAtom } from "@/features/flow/store/node";
 import { JobData } from "@/features/flow/types/job-data";
 import { StepData } from "@/features/flow/types/step-data";
 import { WorkflowData } from "@/features/flow/types/workflow-data";
