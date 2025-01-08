@@ -48,3 +48,5 @@ export const StepNode = memo(({ id, data }: NodeProps<Node<StepData>>) => {
     </>
   );
 });
+
+StepNode.displayName = "StepNode";

@@ -18,6 +18,8 @@ import {
 import { useAtom, useSetAtom } from "jotai";
 import { useCallback, useRef } from "react";
 
+import { SaveDataDialog } from "./save-data/save-data-dialog";
+
 import { ControlPanel } from "@/features/flow/components/controls/control-panel";
 import { ExportDialog } from "@/features/flow/components/export/export-dialog";
 import { JobNode } from "@/features/flow/components/node/job-node";
@@ -146,6 +148,7 @@ export const Flow = () => {
       <Background />
       <MiniMap />
       <ExportDialog />
+      <SaveDataDialog />
     </ReactFlow>
   );
 };

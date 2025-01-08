@@ -2,7 +2,7 @@ import { Geist, Noto_Sans_JP } from "next/font/google";
 
 import type { Metadata } from "next";
 
-import "./globals.css";
+import "@/app/globals.css";
 import "@xyflow/react/dist/base.css";
 import { Toaster } from "@/components/ui/sonner";
 

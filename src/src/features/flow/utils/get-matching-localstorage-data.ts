@@ -1,4 +1,4 @@
-import { FlowData } from "../types/flow-data";
+import { FlowData } from "@/features/flow/types/flow-data";
 
 export function getMatchingLocalStorageData(regexPattern: string): FlowData[] {
   const matchingData: FlowData[] = [];

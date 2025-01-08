@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 
-import { openDialogAtom } from "../store/open-export-dialog";
+import { openDialogAtom } from "@/features/flow/store/open-export-dialog";
 
 export const useExportDialog = () => {
   const [isOpen, setOpen] = useAtom(openDialogAtom);

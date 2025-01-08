@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "add": "npx shadcn@latest add",
+    "eslint": "npx eslint --fix './src/**/*.{ts,tsx}' --config eslint.config.mjs",
     "format": "npx eslint --fix './src/**/*.{ts,tsx}' --config eslint.config.mjs ; npx prettier --write './src/**/*.{ts,tsx}'"
   },
   "dependencies": {

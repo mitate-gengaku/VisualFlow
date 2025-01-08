@@ -34,3 +34,5 @@ export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
     </>
   );
 });
+
+WorkflowNode.displayName = "WorkflowNode";

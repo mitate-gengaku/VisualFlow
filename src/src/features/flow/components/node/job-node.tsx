@@ -34,3 +34,5 @@ export const JobNode = memo(({ data }: NodeProps<Node<JobData>>) => {
     </>
   );
 });
+
+JobNode.displayName = "JobNode";
