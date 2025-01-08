@@ -19,7 +19,7 @@ import { useAtom, useSetAtom } from "jotai";
 import { useCallback, useRef } from "react";
 
 import { ControlPanel } from "@/features/flow/components/controls/control-panel";
-import { ExportDialog } from "@/features/flow/components/export-dialog";
+import { ExportDialog } from "@/features/flow/components/export/export-dialog";
 import { JobNode } from "@/features/flow/components/node/job-node";
 import { StepNode } from "@/features/flow/components/node/step-node";
 import { WorkflowNode } from "@/features/flow/components/node/workflow-node";

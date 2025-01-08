@@ -8,8 +8,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CodeBlock } from "@/features/flow/components/code-block";
-import { DownloadForm } from "@/features/flow/components/download-form";
+import { CodeBlock } from "@/features/flow/components/export/code-block";
+import { DownloadForm } from "@/features/flow/components/export/download-form";
 import { useExportDialog } from "@/features/flow/hooks/use-export-dialog";
 
 export const ExportDialog = () => {

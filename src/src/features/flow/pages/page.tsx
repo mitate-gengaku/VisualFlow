@@ -1,5 +1,7 @@
 import { ReactFlowProvider } from "@xyflow/react";
 
+import { HeaderMenu } from "../components/menu/header-menu";
+
 import { Header } from "@/components/layout/header";
 import { Sidebar } from "@/components/layout/sidebar";
 import {
@@ -12,7 +14,9 @@ import { Flow } from "@/features/flow/components/react-flow";
 export const TopPage = () => {
   return (
     <ReactFlowProvider>
-      <Header />
+      <Header>
+        <HeaderMenu />
+      </Header>
       <main className="w-full h-full pt-12">
         <ResizablePanelGroup direction="horizontal">
           <ResizablePanel

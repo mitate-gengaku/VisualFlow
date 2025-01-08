@@ -83,7 +83,7 @@ const eslintConfig = [
       'no-relative-import-paths/no-relative-import-paths': [
         'warn',
         {
-          allowedDepth: 1a,
+          allowedDepth: 1,
           allowSameFolder: true,
           rootDir: 'src',
           prefix: '@'
