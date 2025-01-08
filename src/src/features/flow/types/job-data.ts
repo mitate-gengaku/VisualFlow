@@ -1,5 +1,5 @@
 export type JobData = {
-  "name": string
+  name: string;
   "runs-on": string;
-  "job_id": string;
-}
+  job_id: string;
+};
