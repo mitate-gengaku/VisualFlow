@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useHandleNode } from "@/features/flow/hooks/useHandleNode";
+import { useHandleNode } from "@/features/flow/hooks/use-handle-node";
 
 interface Props {
   type: "workflow" | "job" | "step";

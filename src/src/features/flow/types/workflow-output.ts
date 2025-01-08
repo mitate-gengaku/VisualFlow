@@ -1,6 +1,8 @@
+import { EmptyObject } from "@/features/flow/types/empty-object";
+
 export interface WorkflowOutput {
   name: string;
-  on: { [key: string]: any };
+  on: { [key: string]: string | EmptyObject };
   jobs: {
     [key: string]: {
       name: string;

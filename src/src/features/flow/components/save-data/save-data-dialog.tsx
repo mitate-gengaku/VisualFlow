@@ -1,5 +1,5 @@
-import { useAtom, useAtomValue } from "jotai";
-import { useMemo, useState } from "react";
+import { useAtom } from "jotai";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -20,16 +20,12 @@ import {
 } from "@/components/ui/table";
 import { useDataStorage } from "@/features/flow/hooks/use-data-storage";
 import { saveDataDialogAtom } from "@/features/flow/store/open-save-data-dialog";
-import { saveDataAtom } from "@/features/flow/store/save-data";
 import { getMatchingLocalStorageData } from "@/features/flow/utils/get-matching-localstorage-data";
 
 export const SaveDataDialog = () => {
   const [index, setIndex] = useState<number>(0);
   const [showSaveDataDialog, setSaveDataDialog] = useAtom(saveDataDialogAtom);
-  const saveData = useAtomValue(saveDataAtom);
-  const allSaveData = useMemo(() => {
-    return getMatchingLocalStorageData("save-data-");
-  }, [saveData]);
+  const allSaveData = getMatchingLocalStorageData("save-data-");
 
   const { onRestoreFromParams } = useDataStorage();
 

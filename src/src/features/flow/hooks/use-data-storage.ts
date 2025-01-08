@@ -1,6 +1,5 @@
 import { useReactFlow } from "@xyflow/react";
 import { useAtom, useSetAtom } from "jotai";
-import { useCallback } from "react";
 import { toast } from "sonner";
 
 import { edgesAtom } from "@/features/flow/store/edge";
@@ -14,7 +13,7 @@ export const useDataStorage = () => {
   const [saveData, setSaveData] = useAtom(saveDataAtom);
   const { toObject, setViewport } = useReactFlow();
 
-  const onSave = useCallback(() => {
+  const onSave = () => {
     const data = toObject();
 
     if (saveData) {
@@ -31,9 +30,9 @@ export const useDataStorage = () => {
       });
     }
     toast.success("保存しました");
-  }, [saveData]);
+  };
 
-  const onRestore = useCallback(() => {
+  const onRestore = () => {
     if (!saveData) {
       return;
     }
@@ -45,7 +44,7 @@ export const useDataStorage = () => {
     setViewport(viewport);
 
     toast.success("データを復元しました");
-  }, [saveData]);
+  };
 
   const onRestoreFromParams = (data: FlowData | undefined) => {
     if (!data) {

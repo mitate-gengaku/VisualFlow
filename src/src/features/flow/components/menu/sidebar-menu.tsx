@@ -20,7 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { CraeteNodeButton } from "@/features/flow/components/menu/create-node-button";
 import { onOptions } from "@/features/flow/config/options/on-options";
 import { runsOnOptions } from "@/features/flow/config/options/runs-options";
-import { useHandleNode } from "@/features/flow/hooks/useHandleNode";
+import { useHandleNode } from "@/features/flow/hooks/use-handle-node";
 
 export const SidebarMenu = () => {
   const { workflows, jobs, steps, onUpdateNode } = useHandleNode();

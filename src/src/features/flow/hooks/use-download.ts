@@ -58,7 +58,10 @@ export const useDownload = () => {
       await navigator.clipboard.writeText(workflowCode);
       setSuccessCopy(true);
     } catch (e) {
-      toast.error("コピーに失敗しました");
+      if (e instanceof Error) {
+        toast.error("コピーに失敗しました");
+        return;
+      }
       return;
     }
   };
@@ -76,7 +79,7 @@ export const useDownload = () => {
     const content = TransformData.generateYaml();
 
     setWorkflowCode(content);
-  }, [nodes, edges]);
+  }, [nodes, edges, setWorkflowCode]);
 
   useEffect(() => {
     if (!isSuccessCopy) return;

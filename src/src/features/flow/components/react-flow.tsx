@@ -16,15 +16,14 @@ import {
   reconnectEdge,
 } from "@xyflow/react";
 import { useAtom, useSetAtom } from "jotai";
-import { useCallback, useRef } from "react";
-
-import { SaveDataDialog } from "./save-data/save-data-dialog";
+import { useRef } from "react";
 
 import { ControlPanel } from "@/features/flow/components/controls/control-panel";
 import { ExportDialog } from "@/features/flow/components/export/export-dialog";
 import { JobNode } from "@/features/flow/components/node/job-node";
 import { StepNode } from "@/features/flow/components/node/step-node";
 import { WorkflowNode } from "@/features/flow/components/node/workflow-node";
+import { SaveDataDialog } from "@/features/flow/components/save-data/save-data-dialog";
 import { connectionAtom } from "@/features/flow/store/connection";
 import { edgesAtom } from "@/features/flow/store/edge";
 import { nodesAtom } from "@/features/flow/store/node";
@@ -36,47 +35,35 @@ export const Flow = () => {
   const [edges, setEdges] = useAtom(edgesAtom);
   const setConnection = useSetAtom(connectionAtom);
 
-  const onNodesChange = useCallback(
-    (changes: NodeChange<Node>[]) =>
-      setNodes((nds) => applyNodeChanges(changes, nds)),
-    [],
-  );
+  const onNodesChange = (changes: NodeChange<Node>[]) => {
+    setNodes((nds) => applyNodeChanges(changes, nds))
+  }
 
-  const onEdgesChange = useCallback(
-    (changes: EdgeChange<Edge>[]) =>
-      setEdges((eds) => applyEdgeChanges(changes, eds)),
-    [],
-  );
+  const onEdgesChange = (changes: EdgeChange<Edge>[]) => setEdges((eds) => applyEdgeChanges(changes, eds))
 
-  const onConnect = useCallback((connection: Connection) => {
+  const onConnect = (connection: Connection) => {
     setConnection(connection);
     setEdges((eds) =>
       addEdge({ ...connection, type: "step", animated: true }, eds),
     );
-  }, []);
+  };
 
-  const onReconnectStart = useCallback(() => {
+  const onReconnectStart = () => {
     edgeReconnectSuccessful.current = false;
-  }, []);
+  };
 
-  const onReconnect = useCallback(
-    (oldEdge: Edge, newConnection: Connection) => {
-      edgeReconnectSuccessful.current = true;
-      setEdges((edge) => reconnectEdge(oldEdge, newConnection, edge));
-    },
-    [],
-  );
+  const onReconnect = (oldEdge: Edge, newConnection: Connection) => {
+    edgeReconnectSuccessful.current = true;
+    setEdges((edge) => reconnectEdge(oldEdge, newConnection, edge));
+  }
 
-  const onReconnectEnd = useCallback(
-    (_: MouseEvent | TouchEvent, edge: Edge) => {
-      if (!edgeReconnectSuccessful.current) {
-        setEdges((eds) => eds.filter((e) => e.id !== edge.id));
-      }
+  const onReconnectEnd = (_: MouseEvent | TouchEvent, edge: Edge) => {
+    if (!edgeReconnectSuccessful.current) {
+      setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+    }
 
-      edgeReconnectSuccessful.current = true;
-    },
-    [],
-  );
+    edgeReconnectSuccessful.current = true;
+  }
 
   const isValidConnection = (connection: Connection | Edge) => {
     const { source, target } = connection;

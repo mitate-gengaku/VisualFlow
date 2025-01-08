@@ -1,3 +1,5 @@
+import { Edge, Node } from "@xyflow/react";
+
 import { FlowData } from "@/features/flow/types/flow-data";
 
 export function getMatchingLocalStorageData(regexPattern: string): FlowData[] {
@@ -8,7 +10,7 @@ export function getMatchingLocalStorageData(regexPattern: string): FlowData[] {
     const key = localStorage.key(i);
     if (key && new RegExp(regexPattern).test(key)) {
       try {
-        const value = JSON.parse(localStorage.getItem(key) || "");
+        const value = JSON.parse(localStorage.getItem(key) || "") as FlowData;
 
         if (
           Array.isArray(value.nodes) &&
@@ -21,7 +23,7 @@ export function getMatchingLocalStorageData(regexPattern: string): FlowData[] {
           typeof value.updated_at === "string"
         ) {
           const validNodes = value.nodes.every(
-            (node: any) =>
+            (node: Node) =>
               typeof node.id === "string" &&
               typeof node.data === "object" &&
               typeof node.position === "object" &&
@@ -34,7 +36,7 @@ export function getMatchingLocalStorageData(regexPattern: string): FlowData[] {
           );
 
           const validEdges = value.edges.every(
-            (edge: any) =>
+            (edge: Edge) =>
               typeof edge.source === "string" &&
               typeof edge.target === "string" &&
               typeof edge.type === "string" &&
