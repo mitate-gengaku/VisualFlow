@@ -36,10 +36,11 @@ export const Flow = () => {
   const setConnection = useSetAtom(connectionAtom);
 
   const onNodesChange = (changes: NodeChange<Node>[]) => {
-    setNodes((nds) => applyNodeChanges(changes, nds))
-  }
+    setNodes((nds) => applyNodeChanges(changes, nds));
+  };
 
-  const onEdgesChange = (changes: EdgeChange<Edge>[]) => setEdges((eds) => applyEdgeChanges(changes, eds))
+  const onEdgesChange = (changes: EdgeChange<Edge>[]) =>
+    setEdges((eds) => applyEdgeChanges(changes, eds));
 
   const onConnect = (connection: Connection) => {
     setConnection(connection);
@@ -55,7 +56,7 @@ export const Flow = () => {
   const onReconnect = (oldEdge: Edge, newConnection: Connection) => {
     edgeReconnectSuccessful.current = true;
     setEdges((edge) => reconnectEdge(oldEdge, newConnection, edge));
-  }
+  };
 
   const onReconnectEnd = (_: MouseEvent | TouchEvent, edge: Edge) => {
     if (!edgeReconnectSuccessful.current) {
@@ -63,7 +64,7 @@ export const Flow = () => {
     }
 
     edgeReconnectSuccessful.current = true;
-  }
+  };
 
   const isValidConnection = (connection: Connection | Edge) => {
     const { source, target } = connection;
