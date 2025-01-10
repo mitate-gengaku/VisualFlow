@@ -81,7 +81,7 @@ export class TransformDataClass {
           });
         } else {
           const childNodes = replaceNode(value);
-          if (childNodes.length > 0) {
+          if (childNodes.length >= 0) {
             result.push({
               id: key,
               children: childNodes,
@@ -106,16 +106,16 @@ export class TransformDataClass {
     for (const job of workflow.children) {
       const jobId = job.data.job_id as string;
       output.jobs[jobId] = {
-        name: job.data.name ?? "",
-        "runs-on": job.data["runs-on"] ?? "",
+        name: (job.data.name as string),
+        "runs-on": (job.data["runs-on"] as string),
         steps: [],
       };
 
       const processSteps = (steps: TreeNode[]) => {
         for (const step of steps) {
           output.jobs[jobId].steps.push({
-            name: step.data.name ?? "",
-            run: step.data.run ?? "",
+            name: (step.data.name as string),
+            run: (step.data.run as string),
           });
           if (step.children.length > 0) {
             processSteps(step.children);
