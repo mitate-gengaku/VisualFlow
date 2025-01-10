@@ -9,7 +9,8 @@
     "lint": "next lint",
     "add": "npx shadcn@latest add",
     "eslint": "npx eslint --fix './src/**/*.{ts,tsx}' --config eslint.config.mjs",
-    "format": "npx eslint --fix './src/**/*.{ts,tsx}' --config eslint.config.mjs ; npx prettier --write './src/**/*.{ts,tsx}'"
+    "format": "npx eslint --fix './src/**/*.{ts,tsx}' --config eslint.config.mjs ; npx prettier --write './src/**/*.{ts,tsx}'",
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.2",
@@ -54,6 +55,7 @@
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^2.1.8",
     "eslint": "^9.17.0",
     "eslint-config-next": "^15.1.3",
     "eslint-config-prettier": "^9.1.0",
