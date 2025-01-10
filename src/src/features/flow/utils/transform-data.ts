@@ -106,16 +106,16 @@ export class TransformDataClass {
     for (const job of workflow.children) {
       const jobId = job.data.job_id as string;
       output.jobs[jobId] = {
-        name: (job.data.name as string),
-        "runs-on": (job.data["runs-on"] as string),
+        name: job.data.name as string,
+        "runs-on": job.data["runs-on"] as string,
         steps: [],
       };
 
       const processSteps = (steps: TreeNode[]) => {
         for (const step of steps) {
           output.jobs[jobId].steps.push({
-            name: (step.data.name as string),
-            run: (step.data.run as string),
+            name: step.data.name as string,
+            run: step.data.run as string,
           });
           if (step.children.length > 0) {
             processSteps(step.children);

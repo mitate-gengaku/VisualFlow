@@ -9,7 +9,7 @@ export function getMatchingLocalStorageData(regexPattern: string): FlowData[] {
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (key && new RegExp(regexPattern).test(key)) {
-      const item = localStorage.getItem(key) as string
+      const item = localStorage.getItem(key) as string;
       const value = JSON.parse(item) as FlowData;
 
       if (
