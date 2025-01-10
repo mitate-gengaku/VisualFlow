@@ -9,7 +9,7 @@ describe('generateStorageKeyのテスト', () => {
     expect(typeof key).toBe("string");
   });
 
-  it('キー文字列が生成されたとき、正しいフォーマットであること', () => {
+  it('正しいフォーマットのキー文字列が生成される', () => {
     const key = generateStorageKey();
 
     expect(key).toMatch(/^save-data-\d{4}-\d{2}-\d{2}$/);
