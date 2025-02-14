@@ -29,7 +29,7 @@ export const SidebarMenu = () => {
     <div className="flex flex-col gap-4">
       <div>
         <div className="flex items-center justify-between">
-          <p className="text-gray-500 text-xs">ワークフロー</p>
+          <p className="text-gray-500 text-xs">Workflow</p>
           <CraeteNodeButton type="workflow" />
         </div>
         <Accordion type="single" collapsible>
@@ -67,7 +67,7 @@ export const SidebarMenu = () => {
                       }
                     >
                       <SelectTrigger className="rounded-sm text-xs placeholder:!text-gray-400">
-                        <SelectValue placeholder="イベントを選択" />
+                        <SelectValue placeholder="Choose event" />
                       </SelectTrigger>
                       <SelectContent>
                         {onOptions.map((on) => (
@@ -90,7 +90,7 @@ export const SidebarMenu = () => {
       </div>
       <div>
         <div className="flex items-center justify-between">
-          <p className="text-gray-500 text-xs">ジョブ</p>
+          <p className="text-gray-500 text-xs">Job</p>
           <CraeteNodeButton type="job" />
         </div>
         <Accordion type="single" collapsible>
@@ -126,7 +126,7 @@ export const SidebarMenu = () => {
                       }
                     >
                       <SelectTrigger className="rounded-sm text-xs placeholder:!text-gray-400">
-                        <SelectValue placeholder="実行環境を選択" />
+                        <SelectValue placeholder="Select execution environment" />
                       </SelectTrigger>
                       <SelectContent>
                         {Object.keys(runsOnOptions).map((os) => (
@@ -156,7 +156,7 @@ export const SidebarMenu = () => {
       </div>
       <div>
         <div className="flex items-center justify-between">
-          <p className="text-gray-500 text-xs">ステップ</p>
+          <p className="text-gray-500 text-xs">Step</p>
           <CraeteNodeButton type="step" />
         </div>
         <Accordion type="single" collapsible>

@@ -31,18 +31,20 @@ export const SaveDataDialog = () => {
 
   return (
     <Dialog open={showSaveDataDialog} onOpenChange={setSaveDataDialog}>
-      <DialogContent className="font-noto-sans-jp flex flex-col">
+      <DialogContent className=" flex flex-col">
         <DialogHeader>
-          <DialogTitle>保存データ</DialogTitle>
-          <DialogDescription>保存データを選択してください</DialogDescription>
+          <DialogTitle>Save Data</DialogTitle>
+          <DialogDescription>
+            Please select the saved data you want to restore
+          </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead />
-                <TableHead>作成日</TableHead>
-                <TableHead>更新日</TableHead>
+                <TableHead>Created At</TableHead>
+                <TableHead>Updated At</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -72,7 +74,7 @@ export const SaveDataDialog = () => {
               setSaveDataDialog(false);
             }}
           >
-            開く
+            Open
           </Button>
         </div>
       </DialogContent>
