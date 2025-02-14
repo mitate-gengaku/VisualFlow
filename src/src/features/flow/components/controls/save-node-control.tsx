@@ -15,7 +15,7 @@ export const SaveNodeControl = () => {
     <Tooltip>
       <TooltipTrigger asChild>
         <ControlButton onClick={() => onSave()}>
-          <SaveIcon className="!fill-white" />
+          <SaveIcon className="!fill-white dark:!fill-slate-950" />
         </ControlButton>
       </TooltipTrigger>
       <TooltipContent>Save</TooltipContent>

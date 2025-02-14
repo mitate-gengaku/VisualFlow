@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { useDownload } from "@/features/flow/hooks/use-download";
+import { useExport } from "@/features/flow/hooks/use-export";
 
 export const DownloadForm = () => {
-  const { onDownload } = useDownload();
+  const { onDownload } = useExport();
 
   return (
     <form onSubmit={onDownload}>

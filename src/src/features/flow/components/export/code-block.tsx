@@ -3,10 +3,10 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CopyButton } from "@/features/flow/components/export/copy-button";
-import { useDownload } from "@/features/flow/hooks/use-download";
+import { useExport } from "@/features/flow/hooks/use-export";
 
 export const CodeBlock = () => {
-  const { code } = useDownload();
+  const { code } = useExport();
 
   return (
     <div className="relative">

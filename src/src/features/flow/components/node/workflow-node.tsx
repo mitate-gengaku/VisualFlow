@@ -8,8 +8,8 @@ import { WorkflowData } from "@/features/flow/types/workflow-data";
 export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
   return (
     <>
-      <div className=" pb-4 text-sm border bg-white flex w-64 max-w-64 flex-col gap-2 rounded shadow">
-        <div className="flex items-center gap-2 py-2 bg-slate-100 px-3">
+      <div className=" pb-4 text-sm border bg-white dark:bg-slate-950 flex w-64 max-w-64 flex-col gap-2 rounded shadow">
+        <div className="flex items-center gap-2 py-2 bg-slate-100 dark:bg-slate-900 px-3">
           <NetworkIcon className="size-3" />
           <p className="text-xs">{data.name}</p>
         </div>
