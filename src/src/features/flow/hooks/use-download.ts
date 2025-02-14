@@ -1,97 +1,49 @@
 "use client";
 
-import { getConnectedEdges } from "@xyflow/react";
-import { useAtom, useAtomValue } from "jotai";
-import { FormEvent, useEffect, useState } from "react";
-import { toast } from "sonner";
+import {
+  getNodesBounds,
+  getViewportForBounds,
+  useReactFlow,
+} from "@xyflow/react";
+import { toPng } from "html-to-image";
 
-import { edgesAtom } from "@/features/flow/store/edge";
-import { nodesAtom } from "@/features/flow/store/node";
-import { workflowCodeAtom } from "@/features/flow/store/workflow-code";
-import { TransformDataClass } from "@/features/flow/utils/transform-data";
+import { downPicture } from "@/features/flow/utils/download-picture";
 
 export const useDownload = () => {
-  const [isSuccessCopy, setSuccessCopy] = useState<boolean>(false);
-  const nodes = useAtomValue(nodesAtom);
-  const edges = useAtomValue(edgesAtom);
-  const [workflowCode, setWorkflowCode] = useAtom(workflowCodeAtom);
+  const { getNodes } = useReactFlow();
+  const imageWidth = 1024;
+  const imageHeight = 768;
 
-  /**
-   * ファイルをダウンロード処理を行う関数
-   *
-   * @param {FormEvent<HTMLFormElement>} e - フォームの送信イベント
-   *
-   * @remarks
-   * この関数は以下の手順を実行する：
-   * 1. イベントのデフォルト動作を防止
-   * 2. ダウンロードするコンテンツとファイル名を設定
-   * 3. Blobオブジェクトを作成
-   * 4. ダウンロード用のURLを生成
-   * 5. 一時的なリンク要素を作成してクリックし、ダウンロードを開始
-   * 6. 使用後にリンク要素を削除し、オブジェクトURLを解放
-   */
+  const onDownloadPicture = () => {
+    const element = document.querySelector<HTMLElement>(
+      ".react-flow__viewport",
+    );
 
-  const onDownload = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    if (!element) return;
 
-    const connectedEdges = getConnectedEdges(nodes, edges);
-    const TransformData = new TransformDataClass(nodes, connectedEdges);
+    const nodesBounds = getNodesBounds(getNodes());
+    const viewport = getViewportForBounds(
+      nodesBounds,
+      imageWidth,
+      imageHeight,
+      0.5,
+      2,
+      0,
+    );
 
-    const content = TransformData.generateYaml();
-    const fileName = "test.yml";
-
-    setWorkflowCode(content);
-
-    const blob = new Blob([content]);
-    const downloadUrl = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(downloadUrl);
+    toPng(element, {
+      backgroundColor: "#1f2937",
+      width: imageWidth,
+      height: imageHeight,
+      style: {
+        width: imageWidth.toString(),
+        height: imageHeight.toString(),
+        transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+      },
+    }).then(downPicture);
   };
-
-  const onCopyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(workflowCode);
-      setSuccessCopy(true);
-    } catch (e) {
-      if (e instanceof Error) {
-        toast.error("コピーに失敗しました");
-        return;
-      }
-      return;
-    }
-  };
-
-  useEffect(() => {
-    const connectedEdges = getConnectedEdges(nodes, edges);
-
-    if (!connectedEdges.length) {
-      setWorkflowCode("接続されたノードが見つかりません");
-      return;
-    }
-
-    const TransformData = new TransformDataClass(nodes, connectedEdges);
-
-    const content = TransformData.generateYaml();
-
-    setWorkflowCode(content);
-  }, [nodes, edges, setWorkflowCode]);
-
-  useEffect(() => {
-    if (!isSuccessCopy) return;
-    setTimeout(() => {
-      setSuccessCopy(false);
-    }, 3000);
-  }, [isSuccessCopy]);
 
   return {
-    isSuccessCopy,
-    code: workflowCode,
-    onDownload,
-    onCopyToClipboard,
+    onDownloadPicture,
   };
 };

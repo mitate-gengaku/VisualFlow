@@ -18,7 +18,7 @@ export const FitViewControl = () => {
           <MaximizeIcon />
         </ControlButton>
       </TooltipTrigger>
-      <TooltipContent>画面幅に合わせる</TooltipContent>
+      <TooltipContent>Fit View</TooltipContent>
     </Tooltip>
   );
 };

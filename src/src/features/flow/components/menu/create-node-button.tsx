@@ -17,7 +17,7 @@ export const CraeteNodeButton = ({ type }: Props) => {
       className="h-6 rounded-sm"
       onClick={() => onCreateNode(type)}
     >
-      追加
+      Add
     </Button>
   );
 };

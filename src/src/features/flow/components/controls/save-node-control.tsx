@@ -15,10 +15,10 @@ export const SaveNodeControl = () => {
     <Tooltip>
       <TooltipTrigger asChild>
         <ControlButton onClick={() => onSave()}>
-          <SaveIcon className="!fill-white" />
+          <SaveIcon className="!fill-white dark:!fill-slate-950" />
         </ControlButton>
       </TooltipTrigger>
-      <TooltipContent>保存する</TooltipContent>
+      <TooltipContent>Save</TooltipContent>
     </Tooltip>
   );
 };

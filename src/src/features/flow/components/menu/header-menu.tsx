@@ -20,12 +20,12 @@ export const HeaderMenu = () => {
   return (
     <Menubar className="border-0 shadow-none">
       <MenubarMenu>
-        <MenubarTrigger>ファイル</MenubarTrigger>
-        <MenubarContent className="font-noto-sans-jp">
+        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarContent className="">
           <MenubarItem onClick={() => setSaveDataDialog((show) => !show)}>
-            開く
+            Open
           </MenubarItem>
-          <MenubarItem onClick={() => onSave()}>保存</MenubarItem>
+          <MenubarItem onClick={() => onSave()}>Save</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

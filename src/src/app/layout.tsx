@@ -1,9 +1,10 @@
-import { Geist, Noto_Sans_JP } from "next/font/google";
+import { Geist } from "next/font/google";
 
 import type { Metadata } from "next";
 
 import "@/app/globals.css";
 import "@xyflow/react/dist/base.css";
+import { ThemeProvider } from "@/components/provider/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
@@ -11,15 +12,30 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const notoSansJP = Noto_Sans_JP({
-  variable: "--font-noto-sans-jp",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Visual Flow | Create & Visualize Github Actions Workflow",
+  title: "VisualFlow",
   description:
-    "Github Actionsのワークフローファイルを視覚的に設計・生成できるReact Flowベースのアプリケーションです。各ノードを接続するだけで簡単にワークフローを設計することができ、YAMLファイルをダウンロードすることができます。",
+    "A ReactFlow based application for visually designing and generating GitHub Actions workflow files. You can easily design workflows by simply connecting nodes, and download the YAML file.",
+  metadataBase: new URL("https://visualflow.net"),
+  openGraph: {
+    title: "VisualFlow",
+    description:
+      "A ReactFlow based application for visually designing and generating GitHub Actions workflow files. You can easily design workflows by simply connecting nodes, and download the YAML file.",
+    url: "https://visualflow.net",
+    siteName: "VisualFlow",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "VisualFlow",
+    description:
+      "A ReactFlow based application for visually designing and generating GitHub Actions workflow files. You can easily design workflows by simply connecting nodes, and download the YAML file.",
+    creator: "@mitate-gengaku",
+    creatorId: "1776914915519045632",
+  },
+  authors: [{ name: "Mitate Gengaku", url: "https://mitate-gengaku.com" }],
+  generator: "Next.js",
 };
 
 export default function RootLayout({
@@ -28,12 +44,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`w-screen h-screen overflow-hidden ${geistSans.variable} ${notoSansJP.variable} antialiased`}
+        className={`w-screen h-screen overflow-hidden ${geistSans.variable} antialiased`}
       >
-        <Toaster richColors theme="light" />
-        {children}
+        <ThemeProvider>
+          <Toaster richColors theme="light" />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

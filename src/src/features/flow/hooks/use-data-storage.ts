@@ -29,7 +29,7 @@ export const useDataStorage = () => {
         updated_at: new Date().toISOString(),
       });
     }
-    toast.success("保存しました");
+    toast.success("Data has been saved!");
   };
 
   const onRestore = () => {
@@ -43,7 +43,7 @@ export const useDataStorage = () => {
     setEdges(edges);
     setViewport(viewport);
 
-    toast.success("データを復元しました");
+    toast.success("The data has been restored!");
   };
 
   const onRestoreFromParams = (data: FlowData | undefined) => {
@@ -57,7 +57,7 @@ export const useDataStorage = () => {
     setEdges(edges);
     setViewport(viewport);
 
-    toast.success("データを復元しました");
+    toast.success("The data has been restored!");
   };
 
   return {

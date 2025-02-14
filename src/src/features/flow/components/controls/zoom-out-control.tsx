@@ -18,7 +18,7 @@ export const ZoomOutControl = () => {
           <MinusIcon />
         </ControlButton>
       </TooltipTrigger>
-      <TooltipContent>縮小</TooltipContent>
+      <TooltipContent>Zoom Out</TooltipContent>
     </Tooltip>
   );
 };
