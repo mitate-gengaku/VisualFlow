@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 
 import { GithubLogoIcon } from "@/components/icons/github";
 import { Button } from "@/components/ui/button";
+import { ToggleThemeButton } from "@/features/theme/components/toggle-button";
 
 interface Props {
   children?: ReactNode;
@@ -18,10 +19,11 @@ export const Header = ({ children }: Props) => {
           VisualFlow
         </h1>
         {children}
+        <ToggleThemeButton />
         <Button
           variant={"outline"}
           size={"icon"}
-          className="ml-auto size-8"
+          className="size-8"
           asChild
         >
           <Link href={"https://github.com/mitate-gengaku/VisualFlow"}>

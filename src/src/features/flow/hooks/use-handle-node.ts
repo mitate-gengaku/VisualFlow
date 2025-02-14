@@ -7,6 +7,7 @@ import { nodesAtom } from "@/features/flow/store/node";
 import { JobData } from "@/features/flow/types/job-data";
 import { StepData } from "@/features/flow/types/step-data";
 import { WorkflowData } from "@/features/flow/types/workflow-data";
+import { toast } from "sonner";
 
 export const useHandleNode = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
@@ -24,8 +25,15 @@ export const useHandleNode = () => {
   }, [nodes]) as Node<StepData>[];
 
   const onCreateNode = (type: "workflow" | "job" | "step") => {
-    if (type === "workflow" && workflows.length) return;
-    if (type === "job" && jobs.length >= 20) return;
+    if (type === "workflow" && workflows.length) {
+      toast.error("Only one workflow can be generated")
+      return;
+    }
+
+    if (type === "job" && jobs.length >= 20) {
+      toast.error("Up to 20 jobs can be generated");
+      return;
+    }
 
     switch (type) {
       case "workflow":

@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import "@xyflow/react/dist/base.css";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/provider/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,8 +27,10 @@ export default function RootLayout({
       <body
         className={`w-screen h-screen overflow-hidden ${geistSans.variable} antialiased`}
       >
-        <Toaster richColors theme="light" />
-        {children}
+        <ThemeProvider>
+          <Toaster richColors theme="light" />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
