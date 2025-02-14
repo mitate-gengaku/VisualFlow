@@ -17,7 +17,7 @@ export const DownloadControl = () => {
     <Tooltip>
       <TooltipTrigger onClick={() => onOpenHandler()} asChild>
         <ControlButton>
-          <UploadIcon className="!fill-white stroke-2" />
+          <UploadIcon className="dark:!fill-slate-950 !fill-white stroke-2" />
         </ControlButton>
       </TooltipTrigger>
       <TooltipContent>Export</TooltipContent>
