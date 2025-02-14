@@ -1,8 +1,13 @@
-"use client"
+"use client";
 
-import { downPicture } from '@/features/flow/utils/download-picture';
-import { getNodesBounds, getViewportForBounds, useReactFlow } from '@xyflow/react';
-import { toPng } from 'html-to-image';
+import {
+  getNodesBounds,
+  getViewportForBounds,
+  useReactFlow,
+} from "@xyflow/react";
+import { toPng } from "html-to-image";
+
+import { downPicture } from "@/features/flow/utils/download-picture";
 
 export const useDownload = () => {
   const { getNodes } = useReactFlow();
@@ -10,8 +15,10 @@ export const useDownload = () => {
   const imageHeight = 768;
 
   const onDownloadPicture = () => {
-    const element = document.querySelector<HTMLElement>('.react-flow__viewport');
-    
+    const element = document.querySelector<HTMLElement>(
+      ".react-flow__viewport",
+    );
+
     if (!element) return;
 
     const nodesBounds = getNodesBounds(getNodes());
@@ -21,11 +28,11 @@ export const useDownload = () => {
       imageHeight,
       0.5,
       2,
-      0
+      0,
     );
- 
+
     toPng(element, {
-      backgroundColor: '#1f2937',
+      backgroundColor: "#1f2937",
       width: imageWidth,
       height: imageHeight,
       style: {
@@ -37,6 +44,6 @@ export const useDownload = () => {
   };
 
   return {
-    onDownloadPicture
-  }
-}
+    onDownloadPicture,
+  };
+};

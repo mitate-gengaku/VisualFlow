@@ -1,42 +1,47 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Moon, MoonIcon, Sun, SunIcon, ComputerIcon, Computer, MonitorCogIcon } from "lucide-react"
+import { MoonIcon, SunIcon, MonitorCogIcon } from "lucide-react";
+import * as React from "react";
 
-import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/loading/spinner";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Spinner } from "@/components/loading/spinner"
-import { useTheme } from "@/features/theme/hooks/use-theme"
+} from "@/components/ui/dropdown-menu";
+import { useTheme } from "@/features/theme/hooks/use-theme";
 
 export const ToggleThemeButton = () => {
   const [isLoad, setLoad] = React.useState(false);
-  const {
-    theme,
-    onCustomTheme
-  } = useTheme();
+  const { theme, onCustomTheme } = useTheme();
 
   React.useEffect(() => {
-    setLoad(true)
-  }, [])
+    setLoad(true);
+  }, []);
 
-  if (!isLoad) return (
-    <Button variant={"ghost"} size={"icon"} className="ml-auto" disabled>
-      <Spinner className="text-sky-600"/>
-    </Button> 
-  )
-  
+  if (!isLoad)
+    return (
+      <Button variant={"ghost"} size={"icon"} className="ml-auto" disabled>
+        <Spinner className="text-sky-600" />
+      </Button>
+    );
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="ml-auto" suppressHydrationWarning>
+        <Button
+          variant="outline"
+          size="icon"
+          className="ml-auto"
+          suppressHydrationWarning
+        >
           {theme === "light" && <SunIcon className="h-[1.2rem] w-[1.2rem]" />}
           {theme === "dark" && <MoonIcon className="h-[1.2rem] w-[1.2rem]" />}
-          {theme === "system" && <MonitorCogIcon className="h-[1.2rem] w-[1.2rem]" />}
+          {theme === "system" && (
+            <MonitorCogIcon className="h-[1.2rem] w-[1.2rem]" />
+          )}
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
@@ -52,5 +57,5 @@ export const ToggleThemeButton = () => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
-}
+  );
+};

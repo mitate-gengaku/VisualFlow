@@ -1,11 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { useDownload } from "@/features/flow/hooks/use-download"
 import { CameraIcon } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
+import { useDownload } from "@/features/flow/hooks/use-download";
+
 export const DownloadPictureButton = () => {
-  const {
-    onDownloadPicture
-  } = useDownload();
+  const { onDownloadPicture } = useDownload();
 
   return (
     <Button
@@ -13,8 +12,8 @@ export const DownloadPictureButton = () => {
       size={"icon"}
       onClick={() => onDownloadPicture()}
       className="size-6 [&>svg]:!size-4 hover:bg-transparent"
-      >
+    >
       <CameraIcon />
     </Button>
-  )
-}
+  );
+};

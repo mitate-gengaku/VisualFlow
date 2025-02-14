@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 
 import "@/app/globals.css";
 import "@xyflow/react/dist/base.css";
-import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/provider/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     title: "VisualFlow",
     description:
       "A ReactFlow based application for visually designing and generating GitHub Actions workflow files. You can easily design workflows by simply connecting nodes, and download the YAML file.",
-      creator: "@mitate-gengaku",
-      creatorId: "1776914915519045632",
+    creator: "@mitate-gengaku",
+    creatorId: "1776914915519045632",
   },
   authors: [{ name: "Mitate Gengaku", url: "https://mitate-gengaku.com" }],
   generator: "Next.js",

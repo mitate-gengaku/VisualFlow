@@ -20,6 +20,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useRef } from "react";
 
 import { ControlPanel } from "@/features/flow/components/controls/control-panel";
+import { DownloadPictureButton } from "@/features/flow/components/download/download-button";
 import { ExportDialog } from "@/features/flow/components/export/export-dialog";
 import { JobNode } from "@/features/flow/components/node/job-node";
 import { StepNode } from "@/features/flow/components/node/step-node";
@@ -28,7 +29,6 @@ import { SaveDataDialog } from "@/features/flow/components/save-data/save-data-d
 import { connectionAtom } from "@/features/flow/store/connection";
 import { edgesAtom } from "@/features/flow/store/edge";
 import { nodesAtom } from "@/features/flow/store/node";
-import { DownloadPictureButton } from "@/features/flow/components/download/download-button";
 import { themeAtom } from "@/store/theme";
 
 export const Flow = () => {

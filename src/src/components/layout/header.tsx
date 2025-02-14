@@ -4,9 +4,9 @@ import Link from "next/link";
 import { ReactNode } from "react";
 
 import { GithubLogoIcon } from "@/components/icons/github";
+import { SiteLogo } from "@/components/icons/site-logo";
 import { Button } from "@/components/ui/button";
 import { ToggleThemeButton } from "@/features/theme/components/toggle-button";
-import { SiteLogo } from "@/components/icons/site-logo";
 
 interface Props {
   children?: ReactNode;
@@ -21,12 +21,7 @@ export const Header = ({ children }: Props) => {
         </h1>
         {children}
         <ToggleThemeButton />
-        <Button
-          variant={"outline"}
-          size={"icon"}
-          className="size-8"
-          asChild
-        >
+        <Button variant={"outline"} size={"icon"} className="size-8" asChild>
           <Link href={"https://github.com/mitate-gengaku/VisualFlow"}>
             <GithubLogoIcon />
           </Link>

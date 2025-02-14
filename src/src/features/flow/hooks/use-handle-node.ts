@@ -1,13 +1,13 @@
 import { Node } from "@xyflow/react";
 import { useAtom } from "jotai";
 import { useMemo } from "react";
+import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
 
 import { nodesAtom } from "@/features/flow/store/node";
 import { JobData } from "@/features/flow/types/job-data";
 import { StepData } from "@/features/flow/types/step-data";
 import { WorkflowData } from "@/features/flow/types/workflow-data";
-import { toast } from "sonner";
 
 export const useHandleNode = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
@@ -26,7 +26,7 @@ export const useHandleNode = () => {
 
   const onCreateNode = (type: "workflow" | "job" | "step") => {
     if (type === "workflow" && workflows.length) {
-      toast.error("Only one workflow can be generated")
+      toast.error("Only one workflow can be generated");
       return;
     }
 

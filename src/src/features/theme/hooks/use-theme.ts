@@ -1,8 +1,9 @@
-import { themeAtom } from "@/store/theme";
 import { ColorMode } from "@xyflow/react";
 import { useSetAtom } from "jotai";
-import { useTheme as useNextTheme } from "next-themes"
+import { useTheme as useNextTheme } from "next-themes";
 import { useEffect } from "react";
+
+import { themeAtom } from "@/store/theme";
 
 export const useTheme = () => {
   const setTheme = useSetAtom(themeAtom);
@@ -10,16 +11,17 @@ export const useTheme = () => {
 
   const onCustomTheme = (theme: ColorMode) => {
     setNextTheme(theme);
-    setTheme(theme)
-  }
+    setTheme(theme);
+  };
 
   useEffect(() => {
-    if(!theme) return;
-    setTheme(theme as ColorMode)
+    if (!theme) return;
+    setTheme(theme as ColorMode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
     theme,
-    onCustomTheme
-  }
-}
+    onCustomTheme,
+  };
+};
