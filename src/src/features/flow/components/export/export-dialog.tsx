@@ -17,17 +17,17 @@ export const ExportDialog = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={(value) => onOpenChange(value)}>
-      <DialogContent className="font-noto-sans-jp flex flex-col">
+      <DialogContent className=" flex flex-col">
         <DialogHeader>
-          <DialogTitle>Workflowのダウンロード</DialogTitle>
+          <DialogTitle>Download Workflow</DialogTitle>
           <DialogDescription>
-            ダウンロードする方法を選んでください
+            Please choose your download method
           </DialogDescription>
         </DialogHeader>
         <Tabs defaultValue="file" className="flex flex-col gap-4">
           <TabsList className="justify-start w-fit">
-            <TabsTrigger value="file">ファイル</TabsTrigger>
-            <TabsTrigger value="code">コード</TabsTrigger>
+            <TabsTrigger value="file">File</TabsTrigger>
+            <TabsTrigger value="code">Code</TabsTrigger>
           </TabsList>
           <TabsContent value="file">
             <DownloadForm />

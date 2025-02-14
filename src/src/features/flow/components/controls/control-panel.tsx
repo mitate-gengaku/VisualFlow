@@ -7,7 +7,7 @@ import { SaveNodeControl } from "@/features/flow/components/controls/save-node-c
 import { ZoomInControl } from "@/features/flow/components/controls/zoom-in-control";
 import { ZoomLevelControl } from "@/features/flow/components/controls/zoom-level-control";
 import { ZoomOutControl } from "@/features/flow/components/controls/zoom-out-control";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils";
 
 export const ControlPanel = () => {
   return (

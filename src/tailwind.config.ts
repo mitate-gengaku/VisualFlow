@@ -1,10 +1,13 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
-	content: [
-		"./src/**/*.{js,ts,jsx,tsx,mdx}",
-	],
+    darkMode: ["class"],
+    content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
   	extend: {
   		colors: {
@@ -55,9 +58,7 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		fontFamily: {
-  			'noto-sans-jp': [
-  				'var(--font-noto-sans-jp)'
-  			]
+  			'geist-sans': 'var(--font-geist-sans)'
   		},
   		keyframes: {
   			'accordion-down': {

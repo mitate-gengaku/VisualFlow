@@ -9,9 +9,9 @@ export const DownloadForm = () => {
     <form onSubmit={onDownload}>
       <div className="flex flex-col gap-2">
         <Label className="w-fit text-xs text-gray-500 cursor-text">
-          YAMLファイルがダウンロードされます
+          The YAML file will be downloaded automatically
         </Label>
-        <Button className="bg-sky-600 hover:bg-sky-700">ダウンロード</Button>
+        <Button className="bg-sky-600 hover:bg-sky-700">Download</Button>
       </div>
     </form>
   );

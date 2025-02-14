@@ -18,7 +18,7 @@ export const ZoomInControl = () => {
           <PlusIcon />
         </ControlButton>
       </TooltipTrigger>
-      <TooltipContent>拡大</TooltipContent>
+      <TooltipContent>Zoom In</TooltipContent>
     </Tooltip>
   );
 };

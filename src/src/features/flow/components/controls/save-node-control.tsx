@@ -18,7 +18,7 @@ export const SaveNodeControl = () => {
           <SaveIcon className="!fill-white" />
         </ControlButton>
       </TooltipTrigger>
-      <TooltipContent>保存する</TooltipContent>
+      <TooltipContent>Save</TooltipContent>
     </Tooltip>
   );
 };

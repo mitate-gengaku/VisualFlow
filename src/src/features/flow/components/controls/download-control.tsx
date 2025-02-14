@@ -20,7 +20,7 @@ export const DownloadControl = () => {
           <UploadIcon className="!fill-white stroke-2" />
         </ControlButton>
       </TooltipTrigger>
-      <TooltipContent>エクスポート</TooltipContent>
+      <TooltipContent>Export</TooltipContent>
     </Tooltip>
   );
 };
