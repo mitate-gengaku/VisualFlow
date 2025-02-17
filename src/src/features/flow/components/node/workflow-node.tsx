@@ -4,12 +4,16 @@ import { memo } from "react";
 
 import { CustomSourceHandle } from "@/features/flow/components/handle/custom-source-handle";
 import { WorkflowData } from "@/features/flow/types/workflow-data";
+import { cn } from "@/lib/utils";
 
-export const WorkflowNode = memo(({ data }: NodeProps<Node<WorkflowData>>) => {
+export const WorkflowNode = memo(({ data, selected }: NodeProps<Node<WorkflowData>>) => {
   return (
     <>
-      <div className=" pb-4 text-sm border bg-white dark:bg-slate-950 flex w-64 max-w-64 flex-col gap-2 rounded shadow">
-        <div className="flex items-center gap-2 py-2 bg-slate-100 dark:bg-slate-900 px-3">
+      <div className={cn(
+        "pb-4 text-sm border-2 bg-white dark:bg-slate-950 flex w-64 max-w-64 flex-col gap-2 rounded shadow duration-200 transition-all",
+        selected && "border-blue-500 dark:border-blue-700 [box-shadow:0_0_20px_0_rgba(56,189,248,.4)]",
+      )}>
+        <div className="flex items-center gap-2 py-2 bg-slate-100 dark:bg-slate-900 px-3 rounded">
           <NetworkIcon className="size-3" />
           <p className="text-xs">{data.name}</p>
         </div>
