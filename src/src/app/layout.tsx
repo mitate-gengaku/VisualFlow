@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { Geist } from "next/font/google";
 
 import type { Metadata } from "next";
@@ -52,6 +53,7 @@ export default function RootLayout({
           <Toaster richColors theme="light" />
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
