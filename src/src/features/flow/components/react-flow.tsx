@@ -29,6 +29,7 @@ import { SaveDataDialog } from "@/features/flow/components/save-data/save-data-d
 import { connectionAtom } from "@/features/flow/store/connection";
 import { edgesAtom } from "@/features/flow/store/edge";
 import { nodesAtom } from "@/features/flow/store/node";
+import { useIsTouchDevice } from "@/hooks/use-is-touch-device";
 import { themeAtom } from "@/store/theme";
 
 export const Flow = () => {
@@ -37,6 +38,7 @@ export const Flow = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
   const theme = useAtomValue(themeAtom);
+  const isTouchDevice = useIsTouchDevice();
 
   const setConnection = useSetAtom(connectionAtom);
 
@@ -118,6 +120,7 @@ export const Flow = () => {
     <ReactFlow
       nodes={nodes}
       edges={edges}
+      nodeTypes={nodeTypes}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
@@ -125,7 +128,6 @@ export const Flow = () => {
       onReconnect={onReconnect}
       onReconnectEnd={onReconnectEnd}
       isValidConnection={isValidConnection}
-      nodeTypes={nodeTypes}
       snapToGrid={true}
       snapGrid={[25, 25]}
       fitView
@@ -133,7 +135,7 @@ export const Flow = () => {
         duration: 1000,
       }}
       panOnScroll
-      selectionOnDrag
+      selectionOnDrag={!isTouchDevice}
       panOnDrag={[1, 2]}
       selectionMode={SelectionMode.Partial}
       colorMode={theme}
