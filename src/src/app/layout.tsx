@@ -1,13 +1,14 @@
 import { Analytics } from "@vercel/analytics/react";
 import { Geist } from "next/font/google";
+import { cookies } from "next/headers";
 
 import type { Metadata } from "next";
 
 import "@/app/globals.css";
 import "@xyflow/react/dist/base.css";
 import { ThemeProvider } from "@/components/provider/theme-provider";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -39,11 +40,14 @@ export const metadata: Metadata = {
   generator: "Next.js",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -51,7 +55,9 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <Toaster richColors theme="light" />
-          {children}
+          <SidebarProvider className="w-full h-full" defaultOpen={defaultOpen}>
+            {children}
+          </SidebarProvider>
         </ThemeProvider>
         <Analytics />
       </body>
