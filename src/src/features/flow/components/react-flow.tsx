@@ -143,9 +143,13 @@ export const Flow = () => {
       <Panel position="top-right">
         <DownloadPictureButton />
       </Panel>
-      <ControlPanel />
+      <Panel position="bottom-left">
+        <ControlPanel />
+      </Panel>
+      <Panel position="bottom-right">
+        <MiniMap />
+      </Panel>
       <Background />
-      <MiniMap />
       <ExportDialog />
       <SaveDataDialog />
     </ReactFlow>

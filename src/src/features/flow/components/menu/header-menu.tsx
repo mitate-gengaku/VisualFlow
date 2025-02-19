@@ -18,7 +18,7 @@ export const HeaderMenu = () => {
   const { onSave } = useDataStorage();
 
   return (
-    <Menubar className="border-0 shadow-none">
+    <Menubar className="hidden md:block border-0 shadow-none">
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent className="">

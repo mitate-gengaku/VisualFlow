@@ -23,7 +23,12 @@ export const ToggleThemeButton = () => {
 
   if (!isLoad)
     return (
-      <Button variant={"ghost"} size={"icon"} className="ml-auto" disabled>
+      <Button
+        variant={"ghost"}
+        size={"icon"}
+        className="ml-auto hidden invisible md:block md:visible"
+        disabled
+      >
         <Spinner className="text-sky-600" />
       </Button>
     );
@@ -34,7 +39,7 @@ export const ToggleThemeButton = () => {
         <Button
           variant="outline"
           size="icon"
-          className="ml-auto"
+          className="md:ml-auto"
           suppressHydrationWarning
         >
           {theme === "light" && <SunIcon className="h-[1.2rem] w-[1.2rem]" />}
