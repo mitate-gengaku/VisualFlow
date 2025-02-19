@@ -27,13 +27,11 @@ version-resolver:
       - 'bug'
   default: patch
 
-branches:
-  - main
-  - dev
-
 template: |
-  ## Changes
   $CHANGES
+footer: |
+  ## 🌱 All Changes
+  https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
 
 autolabeler:
   - label: "enhancement"
@@ -47,3 +45,13 @@ autolabeler:
   - label: "docs"
     branch:
       - '/^docs\/.*/'
+
+  - label: "release"
+    branch:
+      - '/^dev\/.*/'
+
+exclude-labels:
+  - "release"
+
+branches:
+  - main
